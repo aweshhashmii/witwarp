@@ -200,65 +200,137 @@ deliverySelect.addEventListener('change', () => {
   if (!needsEmail) emailInput.value = '';
 });
 
-checkoutForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  checkoutMessage.textContent = '';
+// Prepare the secure Razorpay link while the customer is completing the form.
+// This makes the final button tap much faster when the server responds in advance.
+let preparedPayloadKey = '';
+let preparedPaymentPromise = null;
+let prewarmTimer = null;
 
-  if (!SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY === 'PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE') {
-    checkoutMessage.textContent = 'Checkout is not configured yet. Please contact WitWarp before paying.';
-    return;
-  }
-
+function getCheckoutPayload() {
   const name = document.getElementById('customer-name').value.trim();
   const deliveryMethod = deliverySelect.value;
   const email = emailInput.value.trim();
 
-  if (name.length < 2) {
-    checkoutMessage.textContent = 'Please enter your full name.';
+  if (name.length < 2) return null;
+  if (!['email', 'telegram', 'download'].includes(deliveryMethod)) return null;
+  if (deliveryMethod === 'email' && !email) return null;
+
+  return {
+    name,
+    delivery_method: deliveryMethod,
+    email: deliveryMethod === 'email' ? email : '',
+    subject_sku: subject
+  };
+}
+
+function payloadKey(payload) {
+  return JSON.stringify(payload);
+}
+
+async function requestPaymentLink(payload) {
+  const response = await fetch(CREATE_PURCHASE_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_PUBLISHABLE_KEY
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || !result.success || !result.payment_url) {
+    throw new Error(result.error || 'Unable to start payment. Please try again.');
+  }
+
+  const paymentUrl = new URL(result.payment_url);
+  if (paymentUrl.protocol !== 'https:' ||
+      !['rzp.io', 'api.razorpay.com'].includes(paymentUrl.hostname)) {
+    throw new Error('The payment service returned an unexpected link. Please contact WitWarp.');
+  }
+  return paymentUrl.href;
+}
+
+function prewarmPaymentLink() {
+  clearTimeout(prewarmTimer);
+  prewarmTimer = setTimeout(() => {
+    const payload = getCheckoutPayload();
+    if (!payload) return;
+
+    const key = payloadKey(payload);
+    if (key === preparedPayloadKey && preparedPaymentPromise) return;
+
+    preparedPayloadKey = key;
+    preparedPaymentPromise = requestPaymentLink(payload).catch(error => {
+      // Keep the form usable; the next submit can retry.
+      if (preparedPayloadKey === key) {
+        preparedPayloadKey = '';
+        preparedPaymentPromise = null;
+      }
+      return { prewarmError: error };
+    });
+  }, 500);
+}
+
+document.getElementById('customer-name').addEventListener('input', prewarmPaymentLink);
+emailInput.addEventListener('input', prewarmPaymentLink);
+deliverySelect.addEventListener('change', prewarmPaymentLink);
+
+checkoutForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  checkoutMessage.textContent = '';
+
+  if (!SUPABASE_PUBLISHABLE_KEY ||
+      SUPABASE_PUBLISHABLE_KEY === 'PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE') {
+    checkoutMessage.textContent = 'Checkout is not configured yet. Please contact WitWarp before paying.';
     return;
   }
-  if (!['email', 'telegram', 'download'].includes(deliveryMethod)) {
-    checkoutMessage.textContent = 'Please choose a delivery method.';
-    return;
-  }
-  if (deliveryMethod === 'email' && !email) {
-    checkoutMessage.textContent = 'Please enter your email address.';
+
+  const payload = getCheckoutPayload();
+  if (!payload) {
+    const name = document.getElementById('customer-name').value.trim();
+    if (name.length < 2) {
+      checkoutMessage.textContent = 'Please enter your full name.';
+      return;
+    }
+    if (!['email', 'telegram', 'download'].includes(deliverySelect.value)) {
+      checkoutMessage.textContent = 'Please choose a delivery method.';
+      return;
+    }
+    if (deliverySelect.value === 'email' && !emailInput.value.trim()) {
+      checkoutMessage.textContent = 'Please enter your email address.';
+      return;
+    }
     return;
   }
 
   checkoutSubmit.disabled = true;
-  checkoutSubmit.textContent = 'Preparing secure payment…';
+  checkoutSubmit.textContent = 'Opening secure payment…';
 
   try {
-    const response = await fetch(CREATE_PURCHASE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_PUBLISHABLE_KEY
-      },
-      body: JSON.stringify({
-        name,
-        delivery_method: deliveryMethod,
-        email: deliveryMethod === 'email' ? email : '',
-        subject_sku: subject
-      })
-    });
+    const key = payloadKey(payload);
+    let paymentUrl;
 
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || !result.success || !result.payment_url) {
-      throw new Error(result.error || 'Unable to start payment. Please try again.');
+    // Reuse the link request started while the customer filled out the form.
+    if (key === preparedPayloadKey && preparedPaymentPromise) {
+      const prepared = await preparedPaymentPromise;
+      if (typeof prepared === 'string') {
+        paymentUrl = prepared;
+      } else {
+        throw prepared.prewarmError || new Error('Unable to start payment. Please try again.');
+      }
+    } else {
+      paymentUrl = await requestPaymentLink(payload);
     }
 
-    // Navigate only to the payment URL returned by our server function.
-    const paymentUrl = new URL(result.payment_url);
-    if (paymentUrl.protocol !== 'https:' || !['rzp.io', 'api.razorpay.com'].includes(paymentUrl.hostname)) {
-      throw new Error('The payment service returned an unexpected link. Please contact WitWarp.');
-    }
-    window.location.assign(paymentUrl.href);
+    window.location.assign(paymentUrl);
   } catch (error) {
-    checkoutMessage.textContent = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+    checkoutMessage.textContent = error instanceof Error
+      ? error.message
+      : 'Something went wrong. Please try again.';
     checkoutSubmit.disabled = false;
     checkoutSubmit.textContent = 'Continue to Secure Payment';
+    preparedPayloadKey = '';
+    preparedPaymentPromise = null;
   }
 });
 
