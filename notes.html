@@ -98,6 +98,73 @@ main.wrap{padding-bottom:8px}
 <section id="description-panel" class="panel" hidden><div id="description-copy"></div></section>
 <section class="sample"><h2>Notes Sample</h2><div class="sample-card" id="generic-sample" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div><div class="history-samples" id="history-samples"><div><p>Sample 1 — Ancient History</p><button class="sample-open" type="button" data-full-image="./IMG_20261014_101533.jpg" data-caption="Sample 1 — Ancient History"><img class="sample-thumb" src="./IMG_20261014_101533.jpg" alt="Handwritten Ancient History notes sample thumbnail" loading="lazy"></button></div><div><p>Sample 2 — Indus Valley Civilization town planning</p><button class="sample-open" type="button" data-full-image="./IMG_20261014_101544.jpg" data-caption="Sample 2 — Indus Valley Civilization town planning"><img class="sample-thumb" src="./IMG_20261014_101544.jpg" alt="Handwritten town planning notes sample thumbnail" loading="lazy"></button></div></div><p class="sample-hint" id="sample-hint" hidden>Tap a sample image to view it full size.</p></section><div class="image-modal" id="image-modal" role="dialog" aria-modal="true" aria-label="Full-size notes sample"><button class="image-modal-close" id="image-modal-close" type="button" aria-label="Close full-size image">×</button><img id="modal-image" src="" alt="Full-size notes sample"><p class="image-modal-caption" id="modal-caption"></p></div>
 <div class="pay">
+  <div class="pay-inner">
+    <button class="pay-button" type="button" onclick="openCheckout()">
+      Pay Now ₹199
+    </button>
+
+    <form id="checkout-form" hidden
+          style="margin-top:20px;padding:20px;background:#fff;border:2px solid #c5d9e6;border-radius:16px;box-shadow:0 5px 0 #d8e7f1;">
+
+      <h2 style="margin:0 0 8px;font-size:22px;">Complete Your Order</h2>
+
+      <p id="checkout-subject"
+         style="color:#526174;margin:0 0 18px;"></p>
+
+      <label for="customer-name"
+             style="display:block;font-weight:700;margin-bottom:7px;">
+        Full Name
+      </label>
+
+      <input id="customer-name" name="name" type="text"
+             autocomplete="name" required maxlength="80"
+             placeholder="Enter your full name"
+             style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
+
+      <label for="delivery-method"
+             style="display:block;font-weight:700;margin-bottom:7px;">
+        Choose Delivery Method
+      </label>
+
+      <select id="delivery-method" name="delivery_method" required
+              style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font:16px Roboto,Arial,sans-serif;">
+        <option value="">Select delivery method</option>
+        <option value="email">Email Delivery</option>
+        <option value="telegram">Telegram Delivery</option>
+        <option value="download">Direct Download</option>
+      </select>
+
+      <div id="email-field" hidden>
+        <label for="customer-email"
+               style="display:block;font-weight:700;margin-bottom:7px;">
+          Email Address
+        </label>
+
+        <input id="customer-email" name="email" type="email"
+               autocomplete="email"
+               placeholder="you@example.com"
+               style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
+      </div>
+
+      <p style="font-size:13px;line-height:1.5;color:#526174;">
+        Order total: <strong>₹199</strong>
+      </p>
+
+      <button id="checkout-submit" type="submit"
+              class="pay-button">
+        Continue to Secure Payment
+      </button>
+
+      <button type="button" onclick="closeCheckout()"
+              style="width:100%;padding:12px;margin-top:12px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font-weight:700;">
+        Cancel
+      </button>
+
+      <p id="checkout-message" role="status"
+         style="font-size:14px;line-height:1.5;"></p>
+    </form>
+  </div>
+</div>
   <button class="pay-button" type="button" onclick="openCheckout()">
     Pay Now ₹199
   </button>
