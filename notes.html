@@ -1,12 +1,96 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Study Notes | WitWarp</title><style>
-:root{--blue:#087fe8;--navy:#111827;--yellow:#ffeb3b}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#080808;background:#fff}.wrap{width:min(100% - 36px,760px);margin:auto}.head{padding:18px 0 22px;display:flex;align-items:center;gap:18px}.back{color:#111;text-decoration:none;font-weight:bold}.logo{width:64px;height:48px;object-fit:contain}.crumb{margin-left:auto;font-size:13px;color:#666}.cover{margin:0 auto 22px;aspect-ratio:1.7/1;background:linear-gradient(145deg,#101827,#000);border-radius:28px;color:#fff;padding:24px;display:flex;flex-direction:column;justify-content:space-between}.cover small{color:var(--yellow);letter-spacing:.13em;font-weight:bold}.cover strong{font-size:clamp(1.8rem,7vw,3rem);line-height:1}.cover span{font-size:12px;color:#d1d5db}.title{font-size:clamp(1.8rem,6vw,2.4rem);line-height:1.05;margin:0 0 20px}.toggle-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.toggle{border:0;border-radius:7px;background:var(--yellow);padding:10px 13px;font-weight:800;font-size:16px;cursor:pointer}.toggle[aria-expanded="true"]{background:#111;color:#fff}.panel{padding:0 4px 16px;font:17px/1.45 Georgia,serif}.panel[hidden]{display:none}.panel ul{padding-left:22px}.panel p{margin:0 0 16px}.sample{margin:24px 0 28px}.sample h2{font-size:28px;margin:0 0 15px}.sample-card{border-radius:22px;background:#f0f2f8;border:1px solid #d9deed;padding:20px;min-height:190px;display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:hidden}.paper{background:white;border:1px solid #ddd;border-radius:9px;padding:14px 10px;box-shadow:0 2px 7px #0000000b}.paper b{display:block;background:#e5eaff;padding:5px;margin-bottom:8px;font-size:12px}.paper i{display:block;height:4px;background:#cfd5e3;margin:8px 0;border-radius:4px}.paper i:nth-child(3n){width:68%}.pay{display:flex;justify-content:center;padding:18px 0 45px}.pay a{display:block;background:var(--yellow);color:#000;text-decoration:none;text-align:center;font-weight:900;font-size:clamp(1.5rem,6vw,2.5rem);padding:23px 25px;border-radius:30px}.note{font:14px/1.4 Arial,sans-serif;color:#555;margin-top:16px;text-align:center}.foot{background:#07569b;color:#fff;padding:22px 0}.foot a{color:var(--yellow);font-weight:bold;text-decoration:none}.foot p{font:16px/1.4 Georgia,serif}.foot .back{color:white}@media(min-width:650px){.sample-card{min-height:280px}.paper{padding:24px}}
-</style></head><body><header class="wrap head"><a href="index.html" class="back">← Home</a><img class="logo" src="assets/witwarp-logo.png" alt="WitWarp"><span class="crumb">Study notes</span></header><main class="wrap"><div class="cover"><small>WITWARP / STUDY NOTES</small><strong id="cover-title">Complete History Notes</strong><span>EXAM-FOCUSED • DIGITAL PDF</span></div><h1 class="title" id="page-title">Complete History Notes</h1><div class="toggle-row"><button class="toggle" id="contents-btn" aria-expanded="true" aria-controls="contents-panel">CONTENTS</button><button class="toggle" id="description-btn" aria-expanded="false" aria-controls="description-panel">DESCRIPTION</button></div><section id="contents-panel" class="panel"><ul id="contents-list"></ul></section><section id="description-panel" class="panel" hidden><div id="description-copy"></div></section><section class="sample"><h2>Notes Sample</h2><div class="sample-card" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div></section><div class="pay"><div><a id="pay-link" href="https://rzp.io/rzp/XlVAPZf" target="_blank" rel="noopener">Pay Now ₹199</a><p class="note">You'll be redirected to Razorpay to complete payment.</p></div></div></main><footer class="foot"><div class="wrap"><strong>Need help before buying?</strong><p>Message WitWarp to confirm availability and delivery details.</p><p>WhatsApp<br><a href="https://wa.me/919905523465">9905523465</a></p><p>Email<br><a href="mailto:awesh.h2@gmail.com">awesh.h2@gmail.com</a></p><p>Instagram<br><a href="https://instagram.com/witwarp.co">@witwarp.co</a></p><a class="back" href="index.html#notes">← Back to all notes</a></div></footer><script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="WitWarp exam-focused digital study notes.">
+<title>Study Notes | WitWarp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#087fe8;--blue-dark:#07569b;--blue-light:#eaf4ff;--navy:#111827;--muted:#526174;--line:#d8e5f3}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;background:#fff}
+.wrap{width:min(100% - 36px,760px);margin:auto}
+.head{padding:12px 14px;margin-top:14px;margin-bottom:24px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(8,127,232,.18);border-radius:18px;box-shadow:0 8px 28px rgba(7,86,155,.09)}
+.back{color:#111827;text-decoration:none;font:600 14px Roboto,Arial,sans-serif;white-space:nowrap}
+.back:hover{color:var(--blue)}
+.logo{display:block;width:76px;height:48px;object-fit:contain;object-position:center}
+.crumb{margin-left:auto;font:500 13px Roboto,Arial,sans-serif;color:var(--muted);white-space:nowrap}
+.cover{margin:0 auto 22px;aspect-ratio:1.7/1;background:linear-gradient(145deg,#102b4d,#050b15);border-radius:28px;color:#fff;padding:clamp(22px,5vw,40px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 28px #0b3f7020}
+.cover small{color:#8fc7ff;letter-spacing:.13em;font-weight:800}
+.cover strong{font-size:clamp(1.8rem,7vw,3rem);line-height:1}
+.cover span{font-size:12px;color:#d7eaff}
+.title{font-size:clamp(1.8rem,6vw,2.4rem);line-height:1.05;letter-spacing:-.035em;margin:0 0 22px}
+.toggle-row{display:flex;gap:6px;padding:6px;background:#f0f6fd;border:1px solid #dbe9f8;border-radius:16px;margin-bottom:22px;width:100%;max-width:440px}
+.toggle{font-family:Roboto,Arial,sans-serif;flex:1;min-height:46px;border:1px solid transparent;border-radius:11px;background:transparent;color:#42617f;padding:11px 14px;font-weight:800;font-size:14px;letter-spacing:.035em;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s,transform .18s}
+.toggle:active{transform:scale(.98)}
+.toggle[aria-expanded="true"]{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;box-shadow:0 4px 12px #087fe82e}
+.panel{padding:0 4px 16px;font:17px/1.55 Georgia,serif;color:#172334}
+.panel[hidden]{display:none}
+.panel ul{padding-left:22px}
+.panel p{margin:0 0 16px}
+.sample{margin:24px 0 28px}
+.sample h2{font-size:25px;margin:0 0 15px;letter-spacing:-.025em}
+.sample-card{border-radius:22px;background:linear-gradient(145deg,#edf6ff,#f8fbff);border:1px solid #d5e7fa;padding:20px;min-height:190px;display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:hidden}
+.paper{background:white;border:1px solid #d9e6f4;border-radius:12px;padding:14px 10px;box-shadow:0 4px 12px #174b7b0a}
+.paper b{display:block;background:#eaf4ff;color:#07569b;padding:6px;margin-bottom:8px;font-size:12px;border-radius:5px}
+.paper i{display:block;height:4px;background:#d3e2f1;margin:8px 0;border-radius:4px}
+.paper i:nth-child(3n){width:68%}
+.pay{display:flex;justify-content:center;padding:18px 0 45px}
+.pay a{font-family:Roboto,Arial,sans-serif;display:block;background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;text-decoration:none;text-align:center;font-weight:800;font-size:clamp(1.35rem,6vw,2rem);padding:20px 30px;border-radius:18px;box-shadow:0 8px 20px #087fe82e;transition:transform .18s,box-shadow .18s}
+.pay a:hover{transform:translateY(-2px);box-shadow:0 12px 24px #087fe83d}
+.note{font:14px/1.4 Arial,sans-serif;color:var(--muted);margin-top:16px;text-align:center}
+.foot{background:linear-gradient(145deg,#07569b,#063b70);color:#fff;padding:24px 0}
+.foot a{color:#d7eaff;font-weight:bold;text-decoration:none}
+.foot p{font:16px/1.4 Georgia,serif}
+.foot .back{color:white}
+@media(max-width:420px){.head{gap:9px;padding:10px}.logo{width:54px;height:42px}.back{font-size:12px}.crumb{font-size:12px}}
+@media(min-width:650px){.sample-card{min-height:280px}.paper{padding:24px}}
+</style>
+</head>
+<body>
+<header class="wrap head">
+<a href="index.html" class="back">← Home</a>
+<img class="logo" src="./witwarp-logo.png" alt="WitWarp">
+<span class="crumb">Study notes</span>
+</header>
+<main class="wrap">
+<div class="cover"><small>WITWARP / STUDY NOTES</small><strong id="cover-title">Complete History Notes</strong><span>EXAM-FOCUSED • DIGITAL PDF</span></div>
+<h1 class="title" id="page-title">Complete History Notes</h1>
+<div class="toggle-row" role="group" aria-label="Notes information tabs">
+<button class="toggle" id="contents-btn" aria-expanded="true" aria-controls="contents-panel">Contents</button>
+<button class="toggle" id="description-btn" aria-expanded="false" aria-controls="description-panel">Description</button>
+</div>
+<section id="contents-panel" class="panel"><ul id="contents-list"></ul></section>
+<section id="description-panel" class="panel" hidden><div id="description-copy"></div></section>
+<section class="sample"><h2>Notes Sample</h2><div class="sample-card" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div></section>
+<div class="pay"><div><a id="pay-link" href="https://rzp.io/rzp/XlVAPZf" target="_blank" rel="noopener">Pay Now ₹199</a><p class="note">You'll be redirected to Razorpay to complete payment.</p></div></div>
+</main>
+<footer class="foot"><div class="wrap"><strong>Need help before buying?</strong><p>Message WitWarp to confirm availability and delivery details.</p><p>WhatsApp<br><a href="https://wa.me/919905523465">9905523465</a></p><p>Email<br><a href="mailto:awesh.h2@gmail.com">awesh.h2@gmail.com</a></p><p>Instagram<br><a href="https://instagram.com/witwarp.co">@witwarp.co</a></p><a class="back" href="index.html#notes">← Back to all notes</a></div></footer>
+<script>
 const data={
-'History':{title:'Complete History Notes',contents:['Prehistoric India','Indus Valley Civilization','Vedic Age','Mahajanapadas, Buddhism and Jainism','Mauryan Empire','Post-Mauryan Empire','Gupta Empire','Vardhana Dynasty and Harshavardhana','Sangam Age','Kalabhra Rule','Pallava Dynasty','Chalukyas','Rashtrakuta Dynasty','Tripartite Struggle','Imperial Chola Dynasty','Ancient Indian Literature','Ancient Art, Architecture, Science and Mathematics','Foreign Travellers, Important Inscriptions'],description:["History — Comprehensive Study Notes","These notes provide a structured approach to understanding Ancient Indian History, focusing on historical developments, significant events, and the evolution of India's political, social, religious, and cultural landscape.","The content is organized chronologically to facilitate systematic learning, conceptual clarity, and effective revision.","Purpose: To build a strong foundation in Ancient Indian History through a structured and exam-oriented approach.","Suitable for: UPSC, SSC, CDS, WBCS, other competitive examinations, and undergraduate history studies."]},
+'History':{title:'Complete History Notes',contents:['Prehistoric India','Indus Valley Civilization','Vedic Age','Mahajanapadas, Buddhism and Jainism','Mauryan Empire','Post-Mauryan Empire','Gupta Empire','Vardhana Dynasty and Harshavardhana','Sangam Age','Kalabhra Rule','Pallava Dynasty','Chalukyas','Rashtrakuta Dynasty','Tripartite Struggle','Imperial Chola Dynasty','Ancient Indian Literature','Ancient Art, Architecture, Science and Mathematics','Foreign Travellers, Important Inscriptions'],description:['History — Comprehensive Study Notes','These notes provide a structured approach to understanding Ancient Indian History, focusing on historical developments, significant events, and the evolution of India’s political, social, religious, and cultural landscape.','The content is organized chronologically to facilitate systematic learning, conceptual clarity, and effective revision.','Purpose: To build a strong foundation in Ancient Indian History through a structured and exam-oriented approach.','Suitable for: UPSC, SSC, CDS, WBCS, other competitive examinations, and undergraduate history studies.']},
 'Geography':{title:'Complete Geography Notes',contents:['Earth and Solar System','Latitudes and Longitudes','Interior of the Earth','Rocks and Landforms','Atmosphere and Climate','Oceans and Ocean Currents','Indian Physiography','Rivers and Drainage Systems','Soils and Natural Vegetation','Agriculture and Resources','Population and Settlements','Maps and Important Locations'],description:['Geography — Exam-Focused Study Notes','Structured notes covering physical and Indian geography, key concepts, maps, and revision-friendly facts.','Suitable for competitive exam preparation and undergraduate revision.']},
 'Polity':{title:'Complete Indian Polity Notes',contents:['Constitutional Development','Making of the Constitution','Preamble and Key Features','Fundamental Rights','Directive Principles','Fundamental Duties','President and Vice President','Prime Minister and Council of Ministers','Parliament','Supreme Court and High Courts','Federalism and Centre-State Relations','Constitutional Bodies'],description:['Indian Polity — Exam-Focused Study Notes','A structured overview of India’s political system, constitutional institutions, rights, duties, and governance.','Suitable for UPSC, SSC, CDS, WBCS, and other competitive examinations.']},
 'Constitution':{title:'Indian Constitution Notes',contents:['Historical Background','Constituent Assembly','Preamble','Union and its Territory','Citizenship','Fundamental Rights','Directive Principles of State Policy','Fundamental Duties','Union Government','State Government','Amendment Procedure','Schedules and Important Articles'],description:['Indian Constitution — Study Notes','Organized notes to help learners revise the structure, principles, articles, and institutions of the Constitution of India.','Suitable for competitive examinations and undergraduate study.']},
 'Maths':{title:'Maths & Quantitative Aptitude Notes',contents:['Number System','Simplification','HCF and LCM','Ratio and Proportion','Percentage','Profit and Loss','Simple and Compound Interest','Average','Time and Work','Speed, Time and Distance','Mensuration','Data Interpretation'],description:['Quantitative Aptitude — Practice Notes','Topic-wise revision notes for common quantitative aptitude concepts. Actual practice questions and solutions should be checked in the supplied PDF.','Suitable for competitive exam preparation.']},
-'G.K.':{title:'General Knowledge Notes',contents:['Indian History','Indian Geography','Indian Polity','Economy Basics','General Science','Environment','Art and Culture','Important Days','Awards and Honours','Sports','Books and Authors','Current Affairs'],description:['General Knowledge — Revision Notes','A topic-organized starting point for static general knowledge and exam revision. Current-affairs material should be updated regularly.','Suitable for competitive examinations.']}};
-const subject=new URLSearchParams(location.search).get('subject')||'History';const item=data[subject]||data.History;document.title=item.title+' | WitWarp';document.getElementById('cover-title').textContent=item.title;document.getElementById('page-title').textContent=item.title;document.getElementById('sample-label').textContent=subject.toUpperCase()+' NOTES';document.getElementById('contents-list').innerHTML=item.contents.map(x=>'<li>'+x+'</li>').join('');document.getElementById('description-copy').innerHTML=item.description.map(x=>'<p>'+x+'</p>').join('');function toggle(btn,panel,otherBtn,otherPanel){const opening=panel.hidden;panel.hidden=!opening;btn.setAttribute('aria-expanded',String(opening));otherPanel.hidden=true;otherBtn.setAttribute('aria-expanded','false')}document.getElementById('contents-btn').addEventListener('click',()=>toggle(document.getElementById('contents-btn'),document.getElementById('contents-panel'),document.getElementById('description-btn'),document.getElementById('description-panel')));document.getElementById('description-btn').addEventListener('click',()=>toggle(document.getElementById('description-btn'),document.getElementById('description-panel'),document.getElementById('contents-btn'),document.getElementById('contents-panel')));
-</script></body></html>
+'G.K.':{title:'General Knowledge Notes',contents:['Indian History','Indian Geography','Indian Polity','Economy Basics','General Science','Environment','Art and Culture','Important Days','Awards and Honours','Sports','Books and Authors','Current Affairs'],description:['General Knowledge — Revision Notes','A topic-organized starting point for static general knowledge and exam revision. Current-affairs material should be updated regularly.','Suitable for competitive examinations.']},
+'Economics':{title:'Economics Notes',contents:['Basic Concepts of Economics','Demand and Supply','National Income','Inflation','Money and Banking','Fiscal Policy','Monetary Policy','Indian Economy','Poverty and Unemployment','Economic Planning and Development','Government Budget','International Trade'],description:['Economics — Exam-Focused Study Notes','Topic-organized notes covering core economic concepts, Indian economy, and important policy themes.','Suitable for competitive examinations and undergraduate revision.']}
+};
+const subject=new URLSearchParams(location.search).get('subject')||'History';
+const item=data[subject]||data.History;
+document.title=item.title+' | WitWarp';
+document.getElementById('cover-title').textContent=item.title;
+document.getElementById('page-title').textContent=item.title;
+document.getElementById('sample-label').textContent=subject.toUpperCase()+' NOTES';
+document.getElementById('contents-list').innerHTML=item.contents.map(x=>'<li>'+x+'</li>').join('');
+document.getElementById('description-copy').innerHTML=item.description.map(x=>'<p>'+x+'</p>').join('');
+function toggle(btn,panel,otherBtn,otherPanel){const opening=panel.hidden;panel.hidden=!opening;btn.setAttribute('aria-expanded',String(opening));otherPanel.hidden=true;otherBtn.setAttribute('aria-expanded','false')}
+document.getElementById('contents-btn').addEventListener('click',()=>toggle(document.getElementById('contents-btn'),document.getElementById('contents-panel'),document.getElementById('description-btn'),document.getElementById('description-panel')));
+document.getElementById('description-btn').addEventListener('click',()=>toggle(document.getElementById('description-btn'),document.getElementById('description-panel'),document.getElementById('contents-btn'),document.getElementById('contents-panel')));
+</script>
+</body>
+</html>
