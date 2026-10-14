@@ -122,6 +122,14 @@ main.wrap{padding-bottom:8px}
         <option value="download">Direct Download</option>
       </select>
 
+      <aside id="delivery-notice" aria-label="Delivery information" style="margin:-4px 0 18px;padding:14px 15px;background:#eef6ff;border:1px solid #b9d8f2;border-left:4px solid #087fe8;border-radius:10px;color:#24364b;font-size:14px;line-height:1.55;">
+        <strong style="display:block;margin-bottom:6px;font-size:15px;">Delivery information</strong>
+        <p style="margin:5px 0;"><strong>Email Delivery:</strong> After payment is verified and email delivery is enabled, the notes PDF will be sent to the email address you provide.</p>
+        <p style="margin:5px 0;"><strong>Telegram Delivery:</strong> After payment is verified and the WitWarp Telegram bot is connected, the notes PDF will be sent through Telegram.</p>
+        <p style="margin:5px 0;"><strong>Direct Download:</strong> After payment is verified and the PDF download is enabled, you will be directed to the notes download page.</p>
+        <p style="margin:8px 0 0;font-weight:700;">Please note: automated delivery and direct downloads are not enabled yet. Contact WitWarp to confirm availability before paying. Do not pay expecting instant delivery until this notice is updated.</p>
+      </aside>
+
       <div id="email-field" hidden>
         <label for="customer-email" style="display:block;font-weight:700;margin-bottom:7px;">Email Address</label>
         <input id="customer-email" name="email" type="email" autocomplete="email"
