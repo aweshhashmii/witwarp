@@ -21,8 +21,11 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 .crumb{margin-left:auto;font:500 13px Roboto,Arial,sans-serif;color:var(--muted);white-space:nowrap}
 .cover{position:relative;isolation:isolate;overflow:hidden;margin:0 auto 22px;aspect-ratio:1.7/1;background:#f4f8fc;border:1px solid #d8e5f3;border-radius:16px;color:#111827;padding:0;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 14px rgba(7,86,155,.08)}
 .cover::after{content:none}
-.subject-cover{padding:0;aspect-ratio:3/4;display:block;position:relative;max-width:430px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
-.subject-cover>img,.subject-cover>video{width:100%;height:auto;display:block;border-radius:0;transform-origin:center}.subject-cover>img{aspect-ratio:3/4;object-fit:contain;animation-duration:5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;will-change:transform,filter}.subject-cover>video{aspect-ratio:3/4;object-fit:cover;display:none}
+/* Keep every cover/video strictly inside the portrait cover box on mobile. */
+.subject-cover{padding:0;position:relative;width:100%;max-width:430px;aspect-ratio:3/4;margin:0 auto 22px;border:0;border-radius:0;background:#f8f4e8;box-shadow:none;overflow:hidden}
+.subject-cover>img,.subject-cover>video{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:0;transform-origin:center}
+.subject-cover>img{object-fit:contain;animation-duration:5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;will-change:transform,filter}
+.subject-cover>video{object-fit:contain;display:none;background:#f8f4e8}
 /* Subject-specific lightweight motion for covers without a dedicated video. */
 .subject-cover.motion-geography>img{animation-name:geoRise}
 .subject-cover.motion-polity>img{animation-name:polityBuild}
