@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free previous year question papers for competitive exams.">
+<title>Free PYQs — WitWarp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#087fe8;--blue-dark:#07569b;--blue-light:#eaf4ff;--line:#b9cfe2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f8fbff;background-image:radial-gradient(#a9c9e7 1px,transparent 1px);background-size:22px 22px;color:#090909;font-family:Roboto,Arial,sans-serif}
+.wrap{width:min(100% - 32px,980px);margin:auto}
+header{padding:18px 0 12px}
+.back{display:inline-block;color:#07569b;font-weight:700;text-decoration:none;margin-bottom:18px}
+h1,h2{letter-spacing:-.035em}
+h1{font-size:clamp(2.2rem,8vw,4rem);line-height:1;margin:8px 0 12px}
+.lead{text-align:center;font:17px/1.5 Georgia,serif;color:#333;margin:0 auto 24px;max-width:650px}
+h1{text-align:center}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.category{display:block;text-align:center;text-decoration:none;color:#111;background:#fff;border:2px solid #111;border-radius:14px;padding:18px 10px;box-shadow:4px 5px 0 #111;font-weight:800;font-size:clamp(14px,3.8vw,18px);cursor:pointer}
+.category[aria-pressed="true"]{background:#087fe8;color:#fff;box-shadow:4px 5px 0 #07569b}
+.panel{margin:28px auto 0;padding:20px;background:#fff;border:2px solid #111;border-radius:15px;box-shadow:5px 6px 0 #111;max-width:700px}
+.panel[hidden]{display:none}
+.panel h2{margin:0 0 8px;font-size:clamp(1.5rem,5vw,2rem)}
+.years{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.year{display:block;text-align:center;background:#eaf4ff;border:1.5px solid #07569b;border-radius:10px;padding:14px 8px;color:#07569b;font-weight:800;text-decoration:none}
+.year.available{background:#087fe8;color:#fff;box-shadow:0 3px 0 #07569b}
+.notice{font:15px/1.5 Georgia,serif;color:#333;margin:12px 0 0}
+footer{margin-top:36px;padding:18px 0;background:#dceeff;border-top:1.5px solid #b9cfe2;font-size:13px}
+@media(min-width:650px){.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.years{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header class="wrap"><a class="back" href="./index.html">← Back to WitWarp</a><h1>Free PYQs</h1><p class="lead">Choose an exam category, then choose a year to access its previous-year question paper PDF.</p></header>
+<main class="wrap">
+<div class="category-grid" id="categories" aria-label="Exam categories"></div>
+<section class="panel" id="year-panel" hidden>
+<h2 id="selected-title">Select a year</h2>
+<p class="notice">Choose a year below. A PDF will download when that year's file has been uploaded to the matching folder in this website.</p>
+<div class="years" id="years"></div>
+<p class="notice" id="year-status" role="status"></p>
+</section>
+</main>
+<footer><div class="wrap">© <span id="year-now"></span> WitWarp · Study smarter.</div></footer>
+<script>
+const exams = [
+  {name:"SSC CGL",slug:"ssc-cgl"},
+  {name:"SSC CHSL",slug:"ssc-chsl"},
+  {name:"SSC CPO",slug:"ssc-cpo"},
+  {name:"SSC GD",slug:"ssc-gd"},
+  {name:"SSC MTS",slug:"ssc-mts"},
+  {name:"SSC STENO",slug:"ssc-steno"},
+  {name:"RRB GROUP D",slug:"rrb-group-d"},
+  {name:"RRB NTPC",slug:"rrb-ntpc"},
+  {name:"UPSC CDS",slug:"upsc-cds"}
+];
+const years=[2020,2021,2022,2023,2024,2025];
+const categories=document.getElementById("categories");
+const panel=document.getElementById("year-panel");
+const title=document.getElementById("selected-title");
+const yearsBox=document.getElementById("years");
+const status=document.getElementById("year-status");
+document.getElementById("year-now").textContent=new Date().getFullYear();
+
+exams.forEach(exam=>{
+  const button=document.createElement("button");
+  button.type="button";button.className="category";button.textContent=exam.name;
+  button.setAttribute("aria-pressed","false");
+  button.addEventListener("click",()=>{
+    document.querySelectorAll(".category").forEach(b=>b.setAttribute("aria-pressed","false"));
+    button.setAttribute("aria-pressed","true");
+    title.textContent=exam.name+" — Select Year";
+    yearsBox.replaceChildren();
+    years.forEach(year=>{
+      const link=document.createElement("a");
+      link.className="year";
+      link.href="./pyqs/"+exam.slug+"/"+year+".pdf";
+      link.textContent=year+" PDF";
+      link.setAttribute("download","");
+      link.addEventListener("click",async event=>{
+        event.preventDefault();
+        status.textContent="Checking for the "+year+" PDF…";
+        try{
+          const response=await fetch(link.href,{method:"HEAD"});
+          if(!response.ok) throw new Error();
+          const download=document.createElement("a");download.href=link.href;download.download=exam.slug+"-"+year+".pdf";document.body.appendChild(download);download.click();download.remove();
+          status.textContent="Download started.";
+        }catch{
+          status.textContent="The "+year+" PDF for "+exam.name+" has not been uploaded yet. Please check back later.";
+        }
+      });
+      yearsBox.appendChild(link);
+    });
+    status.textContent="";
+    panel.hidden=false;
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  categories.appendChild(button);
+});
+</script>
+</body>
+</html>
