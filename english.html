@@ -29,11 +29,15 @@ body{margin:0;color:#090909;font-family:Roboto,Arial,Helvetica,sans-serif;backgr
 .sample{margin:24px 0 24px}
 .sample h2{font-size:24px;margin:0 0 12px;letter-spacing:-.025em}
 .sample-intro{font-size:13px;color:#526174;margin:0 0 10px}
+.sample-shell{padding:12px;background:#fff;border:1.5px solid #c5d9e2;border-radius:18px;box-shadow:0 4px 0 #dceaf2}
 .sample-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.sample-card{min-width:0}
-.sample-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#fff;border:1.5px solid #b9cfe2;border-radius:10px;box-shadow:0 3px 0 #dce7f1}
+.sample-card{min-width:0;padding:8px;background:#fff;border:1.5px solid #c5d9e2;border-radius:13px;box-shadow:0 3px 0 #e0eaf2}
+.sample-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#fff;border:1.5px solid #b9cfe2;border-radius:9px}
 .sample-caption{font-size:12px;line-height:1.35;color:#526174;margin:6px 0 0}
-.sample-placeholder{min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;background:#fff;border:1.5px dashed #9ebbd5;border-radius:10px;color:#526174;font-size:13px;line-height:1.4}
+.sample-placeholder{min-height:130px;display:flex;flex-direction:column;gap:8px;align-items:stretch;justify-content:center;text-align:left;padding:12px;background:#fff;border:0;border-radius:7px;color:#526174;font-size:13px;line-height:1.4}
+.sample-placeholder .placeholder-heading{display:block;padding:7px 9px;background:#eaf4ff;border-radius:5px;color:#315b7a;font-size:11px;font-weight:800}
+.sample-placeholder .placeholder-lines{display:block;height:4px;border-radius:5px;background:#d7e3ed}
+.sample-placeholder .placeholder-lines.short{width:65%}
 .pay{display:flex;justify-content:center;padding:8px 0 34px}
 .pay a{display:block;width:100%;background:var(--blue);color:#fff;text-decoration:none;text-align:center;font-weight:800;font-size:17px;padding:14px 16px;border:2px solid #111;border-radius:12px;box-shadow:0 4px 0 #07569b}
 .note{font:12px/1.45 Arial,sans-serif;color:#526174;margin:12px 0 0;text-align:center}
@@ -83,12 +87,35 @@ body{margin:0;color:#090909;font-family:Roboto,Arial,Helvetica,sans-serif;backgr
 </section>
 <section class="sample">
 <h2>Notes Sample</h2>
-<p class="sample-intro">Sample previews will be added here when the English sample-note images are uploaded.</p>
-<div class="sample-grid">
-<div class="sample-card"><div class="sample-placeholder">English Grammar<br><strong>Sample preview coming soon</strong></div><p class="sample-caption">Sample 1 — Grammar notes</p></div>
-<div class="sample-card"><div class="sample-placeholder">Vocabulary & Practice<br><strong>Sample preview coming soon</strong></div><p class="sample-caption">Sample 2 — Vocabulary practice</p></div>
+<div class="sample-shell">
+  <div class="sample-grid">
+    <div class="sample-card">
+      <div class="sample-placeholder" aria-label="English grammar sample preview">
+        <span class="placeholder-heading">ENGLISH GRAMMAR</span>
+        <span class="placeholder-lines"></span>
+        <span class="placeholder-lines short"></span>
+        <span class="placeholder-lines"></span>
+        <span class="placeholder-heading">Key rules &amp; examples</span>
+        <span class="placeholder-lines"></span>
+        <span class="placeholder-lines short"></span>
+      </div>
+      <p class="sample-caption">Sample 1 — Grammar notes</p>
+    </div>
+    <div class="sample-card">
+      <div class="sample-placeholder" aria-label="Vocabulary practice sample preview">
+        <span class="placeholder-heading">VOCABULARY PRACTICE</span>
+        <span class="placeholder-lines"></span>
+        <span class="placeholder-lines short"></span>
+        <span class="placeholder-lines"></span>
+        <span class="placeholder-heading">Synonyms &amp; antonyms</span>
+        <span class="placeholder-lines"></span>
+        <span class="placeholder-lines short"></span>
+      </div>
+      <p class="sample-caption">Sample 2 — Vocabulary practice</p>
+    </div>
+  </div>
 </div>
-<p class="note">Actual sample images and downloadable study materials have not been added yet.</p>
+<p class="note">Preview cards are placeholders until actual English sample-note images are uploaded.</p>
 </section>
 <div class="pay">
 <div style="width:100%">
