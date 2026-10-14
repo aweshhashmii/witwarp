@@ -21,25 +21,9 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 .crumb{margin-left:auto;font:500 13px Roboto,Arial,sans-serif;color:var(--muted);white-space:nowrap}
 .cover{position:relative;isolation:isolate;overflow:hidden;margin:0 auto 22px;aspect-ratio:1.7/1;background:#f4f8fc;border:1px solid #d8e5f3;border-radius:16px;color:#111827;padding:0;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 14px rgba(7,86,155,.08)}
 .cover::after{content:none}
-/* Keep every cover/video strictly inside the portrait cover box on mobile. */
-.subject-cover{padding:0;position:relative;width:100%;max-width:430px;aspect-ratio:3/4;margin:0 auto 22px;border:0;border-radius:0;background:#f8f4e8;box-shadow:none;overflow:hidden}
-.subject-cover>img,.subject-cover>video{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:0;transform-origin:center}
-.subject-cover>img{object-fit:contain;animation-duration:5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;will-change:transform,filter}
-.subject-cover>video{object-fit:contain;display:none;background:#f8f4e8}
-/* Subject-specific lightweight motion for covers without a dedicated video. */
-.subject-cover.motion-geography>img{animation-name:geoRise}
-.subject-cover.motion-polity>img{animation-name:polityBuild}
-.subject-cover.motion-constitution>img{animation-name:constitutionOpen}
-.subject-cover.motion-maths>img{animation-name:mathsPulse}
-.subject-cover.motion-gk>img{animation-name:globeFloat}
-.subject-cover.motion-economics>img{animation-name:economyGrow}
-@keyframes geoRise{0%,100%{transform:scale(1) translateY(0);filter:saturate(1)}50%{transform:scale(1.025) translateY(-5px);filter:saturate(1.12)}}
-@keyframes polityBuild{0%,100%{transform:scale(1) translateY(0);filter:brightness(1)}45%{transform:scale(1.018) translateY(-3px);filter:brightness(1.07)}}
-@keyframes constitutionOpen{0%,100%{transform:perspective(900px) rotateY(0deg) scale(1)}50%{transform:perspective(900px) rotateY(-1.2deg) scale(1.018)}}
-@keyframes mathsPulse{0%,100%{transform:scale(1);filter:contrast(1)}50%{transform:scale(1.025);filter:contrast(1.08)}}
-@keyframes globeFloat{0%,100%{transform:scale(1) translateY(0) rotate(0deg)}50%{transform:scale(1.018) translateY(-4px) rotate(.35deg)}}
-@keyframes economyGrow{0%,100%{transform:scale(1) translateY(0);filter:brightness(1)}50%{transform:scale(1.025) translateY(-4px);filter:brightness(1.08)}}
-@media(prefers-reduced-motion:reduce){.subject-cover>img{animation:none!important;transform:none!important}}
+/* Static portrait cover: no video or animation. */
+.subject-cover{padding:0;position:relative;width:100%;max-width:430px;aspect-ratio:3/4;margin:0 auto 22px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden}
+.subject-cover>img{display:block;width:100%;height:100%;object-fit:contain;border-radius:0}
 .cover-overlay{display:none}
 .cover-overlay small,.cover-overlay strong,.cover-overlay span{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.35)}
 .cover small{color:#8fc7ff;letter-spacing:.13em;font-weight:800}
@@ -62,8 +46,9 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 .paper i{display:block;height:4px;background:#d3e2f1;margin:8px 0;border-radius:4px}
 .paper i:nth-child(3n){width:68%}
 .pay{display:flex;justify-content:center;padding:18px 0 45px}
-.pay a{font-family:Roboto,Arial,sans-serif;display:block;background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;text-decoration:none;text-align:center;font-weight:800;font-size:clamp(1.35rem,6vw,2rem);padding:20px 30px;border-radius:18px;box-shadow:0 8px 20px #087fe82e;transition:transform .18s,box-shadow .18s}
-.pay a:hover{transform:translateY(-2px);box-shadow:0 12px 24px #087fe83d}
+.pay-inner{width:100%;max-width:520px}
+.pay-button{display:block;width:100%;max-width:520px;margin:0 auto;background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;text-decoration:none;text-align:center;font:700 clamp(1.2rem,5vw,1.6rem)/1.2 Roboto,Arial,sans-serif;padding:20px 24px;border-radius:16px;box-shadow:0 5px 16px rgba(7,86,155,.14)}
+.pay-button:focus-visible{outline:3px solid #8bc7ff;outline-offset:3px}
 .note{font:14px/1.4 Arial,sans-serif;color:var(--muted);margin-top:16px;text-align:center}
 .foot{background:linear-gradient(145deg,#07569b,#063b70);color:#fff;padding:24px 0}
 .foot a{color:#d7eaff;font-weight:bold;text-decoration:none}
@@ -80,7 +65,7 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 <span class="crumb">Study notes</span>
 </header>
 <main class="wrap">
-<div class="cover subject-cover"><img id="subject-cover-image" src="./history-cover.png" alt="History study notes cover"><video id="subject-cover-animation" muted autoplay loop playsinline preload="metadata" poster="./history-cover.png" aria-label="Animated History study notes cover"><source src="./history-cover-animation.mp4" type="video/mp4"></video></div>
+<div class="cover subject-cover"><img id="subject-cover-image" src="./history-cover.png" alt="History study notes cover"></div>
 <h1 class="title" id="page-title">Complete History Notes</h1>
 <div class="toggle-row" role="group" aria-label="Notes information tabs">
 <button class="toggle" id="contents-btn" aria-expanded="true" aria-controls="contents-panel">Contents</button>
@@ -89,7 +74,7 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 <section id="contents-panel" class="panel"><ul id="contents-list"></ul></section>
 <section id="description-panel" class="panel" hidden><div id="description-copy"></div></section>
 <section class="sample"><h2>Notes Sample</h2><div class="sample-card" id="generic-sample" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div><div class="history-samples" id="history-samples"><div><p>Sample 1 — Ancient History</p><button class="sample-open" type="button" data-full-image="./IMG_20261014_101533.jpg" data-caption="Sample 1 — Ancient History"><img class="sample-thumb" src="./IMG_20261014_101533.jpg" alt="Handwritten Ancient History notes sample thumbnail" loading="lazy"></button></div><div><p>Sample 2 — Indus Valley Civilization town planning</p><button class="sample-open" type="button" data-full-image="./IMG_20261014_101544.jpg" data-caption="Sample 2 — Indus Valley Civilization town planning"><img class="sample-thumb" src="./IMG_20261014_101544.jpg" alt="Handwritten town planning notes sample thumbnail" loading="lazy"></button></div></div><p class="sample-hint" id="sample-hint" hidden>Tap a sample image to view it full size.</p></section><div class="image-modal" id="image-modal" role="dialog" aria-modal="true" aria-label="Full-size notes sample"><button class="image-modal-close" id="image-modal-close" type="button" aria-label="Close full-size image">×</button><img id="modal-image" src="" alt="Full-size notes sample"><p class="image-modal-caption" id="modal-caption"></p></div>
-<div class="pay"><div><a id="pay-link" href="https://rzp.io/rzp/XlVAPZf" target="_blank" rel="noopener">Pay Now ₹199</a><p class="note">You'll be redirected to Razorpay to complete payment.</p></div></div>
+<div class="pay"><div style="width:100%"><a class="pay-button" href="https://rzp.io/rzp/XlVAPZf" target="_blank" rel="noopener">Pay Now ₹199</a><p class="note">You’ll be redirected to Razorpay to complete payment.</p></div></div>
 </main>
 <footer class="foot"><div class="wrap"><strong>Need help before buying?</strong><p>Message WitWarp to confirm availability and delivery details.</p><p>WhatsApp<br><a href="https://wa.me/919905523465">9905523465</a></p><p>Email<br><a href="mailto:awesh.h2@gmail.com">awesh.h2@gmail.com</a></p><p>Instagram<br><a href="https://instagram.com/witwarp.co">@witwarp.co</a></p><a class="back" href="index.html#notes">← Back to all notes</a></div></footer>
 <script>
@@ -106,7 +91,7 @@ const subject=new URLSearchParams(location.search).get('subject')||'History';
 const item=data[subject]||data.History;
 document.title=item.title+' | WitWarp';
 const coverFiles={'History':'history-cover.png','Geography':'geography-cover.png','Polity':'polity-cover.png','Constitution':'constitution-cover.png','Maths':'maths-cover.png','G.K.':'general-knowledge-cover.png','Economics':'economics-cover.png'};
-const coverImage=document.getElementById('subject-cover-image');const coverAnimation=document.getElementById('subject-cover-animation');const coverFrame=document.querySelector('.subject-cover');const motionClasses={'Geography':'motion-geography','Polity':'motion-polity','Constitution':'motion-constitution','Maths':'motion-maths','G.K.':'motion-gk','Economics':'motion-economics'};if(motionClasses[subject])coverFrame.classList.add(motionClasses[subject]);coverImage.src='./'+(coverFiles[subject]||coverFiles.History);coverImage.alt=subject+' study notes cover';if(subject==='History'){coverImage.style.display='none';coverAnimation.style.display='block';const showStaticCover=()=>{coverAnimation.style.display='none';coverImage.style.display='block'};coverAnimation.addEventListener('error',showStaticCover,{once:true});coverAnimation.querySelector('source').addEventListener('error',showStaticCover,{once:true});coverAnimation.play().catch(showStaticCover);}else{coverAnimation.style.display='none';coverImage.style.display='block';}
+const coverImage=document.getElementById('subject-cover-image');coverImage.src='./'+(coverFiles[subject]||coverFiles.History);coverImage.alt=subject+' study notes cover';
 document.getElementById('page-title').textContent=item.title;
 document.getElementById('sample-label').textContent=subject.toUpperCase()+' NOTES';
 if(subject==='History'){document.getElementById('generic-sample').style.display='none';document.getElementById('history-samples').classList.add('active');document.getElementById('sample-hint').hidden=false}
