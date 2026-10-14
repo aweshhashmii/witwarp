@@ -14,16 +14,16 @@
 html{scroll-behavior:smooth}
 body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;background:#fff}
 .wrap{width:min(100% - 36px,760px);margin:auto}
-.head{padding:12px 14px;margin-top:14px;margin-bottom:24px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(8,127,232,.18);border-radius:18px;box-shadow:0 8px 28px rgba(7,86,155,.09)}
+.head{position:relative;padding:12px 18px;margin-top:14px;margin-bottom:24px;min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(8,127,232,.18);border-radius:22px;box-shadow:0 8px 28px rgba(7,86,155,.09)}
 .back{color:#111827;text-decoration:none;font:600 14px Roboto,Arial,sans-serif;white-space:nowrap}
 .back:hover{color:var(--blue)}
-.logo{display:block;width:90px;height:64px;object-fit:contain;object-position:center}
+.logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:block;width:112px;height:76px;object-fit:contain;object-position:center}
 .crumb{margin-left:auto;font:500 13px Roboto,Arial,sans-serif;color:var(--muted);white-space:nowrap}
-.cover{position:relative;isolation:isolate;overflow:hidden;margin:0 auto 22px;aspect-ratio:1.7/1;background:linear-gradient(145deg,rgba(8,127,232,.78),rgba(5,31,61,.9));border:1px solid rgba(255,255,255,.4);border-radius:28px;color:#fff;padding:clamp(22px,5vw,40px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 16px 36px rgba(7,86,155,.2),inset 0 1px 0 rgba(255,255,255,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.cover::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent 42%,rgba(8,127,232,.18));border-radius:inherit}
-.subject-cover{padding:0;aspect-ratio:3/4;display:block;position:relative;max-width:430px}
-.subject-cover>img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
-.cover-overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,4vw,30px);background:linear-gradient(180deg,rgba(5,20,45,.22),transparent 40%,rgba(5,20,45,.3));border-radius:inherit}
+.cover{position:relative;isolation:isolate;overflow:hidden;margin:0 auto 22px;aspect-ratio:1.7/1;background:#f4f8fc;border:1px solid #d8e5f3;border-radius:16px;color:#111827;padding:0;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 14px rgba(7,86,155,.08)}
+.cover::after{content:none}
+.subject-cover{padding:0;aspect-ratio:3/4;display:block;position:relative;max-width:430px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.subject-cover>img{width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;display:block;border-radius:0}
+.cover-overlay{display:none}
 .cover-overlay small,.cover-overlay strong,.cover-overlay span{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.35)}
 .cover small{color:#8fc7ff;letter-spacing:.13em;font-weight:800}
 .cover strong{font-size:clamp(1.8rem,7vw,3rem);line-height:1}
@@ -52,7 +52,7 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 .foot a{color:#d7eaff;font-weight:bold;text-decoration:none}
 .foot p{font:16px/1.4 Georgia,serif}
 .foot .back{color:white}
-@media(max-width:420px){.head{gap:9px;padding:10px}.logo{width:76px;height:58px}.back{font-size:12px}.crumb{font-size:12px}}
+@media(max-width:420px){.head{gap:9px;padding:10px 12px;min-height:84px}.logo{width:100px;height:68px}.back{font-size:12px}.crumb{font-size:12px}}
 @media(min-width:650px){.sample-card{min-height:280px}.paper{padding:24px}}
 </style>
 </head>
@@ -63,7 +63,7 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 <span class="crumb">Study notes</span>
 </header>
 <main class="wrap">
-<div class="cover subject-cover"><img id="subject-cover-image" src="./history-cover.png" alt="History study notes cover"><div class="cover-overlay"><small>WITWARP / STUDY NOTES</small><strong id="cover-title">Complete History Notes</strong><span>EXAM-FOCUSED • DIGITAL PDF</span></div></div>
+<div class="cover subject-cover"><img id="subject-cover-image" src="./history-cover.png" alt="History study notes cover"></div>
 <h1 class="title" id="page-title">Complete History Notes</h1>
 <div class="toggle-row" role="group" aria-label="Notes information tabs">
 <button class="toggle" id="contents-btn" aria-expanded="true" aria-controls="contents-panel">Contents</button>
@@ -88,7 +88,6 @@ const data={
 const subject=new URLSearchParams(location.search).get('subject')||'History';
 const item=data[subject]||data.History;
 document.title=item.title+' | WitWarp';
-document.getElementById('cover-title').textContent=item.title;
 const coverFiles={'History':'history-cover.png','Geography':'geography-cover.png','Polity':'polity-cover.png','Constitution':'constitution-cover.png','Maths':'maths-cover.png','G.K.':'general-knowledge-cover.png','Economics':'economics-cover.png'};
 const coverImage=document.getElementById('subject-cover-image');coverImage.src='./'+(coverFiles[subject]||coverFiles.History);coverImage.alt=subject+' study notes cover';
 document.getElementById('page-title').textContent=item.title;
