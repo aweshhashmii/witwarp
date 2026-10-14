@@ -99,42 +99,10 @@ main.wrap{padding-bottom:8px}
 <section class="sample"><h2>Notes Sample</h2><div class="sample-card" id="generic-sample" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div><div class="history-samples" id="history-samples"><div><p>Sample 1 — Ancient History</p><button class="sample-open" type="button" data-full-image="./IMG_20261014_101533.jpg" data-caption="Sample 1 — Ancient History"><img class="sample-thumb" src="./IMG_20261014_101533.jpg" alt="Handwritten Ancient History notes sample thumbnail" loading="lazy"></button></div><div><p>Sample 2 — Indus Valley Civilization town planning</p><button class="sample-open" type="button" data-full-image="./IMG_20261014_101544.jpg" data-caption="Sample 2 — Indus Valley Civilization town planning"><img class="sample-thumb" src="./IMG_20261014_101544.jpg" alt="Handwritten town planning notes sample thumbnail" loading="lazy"></button></div></div><p class="sample-hint" id="sample-hint" hidden>Tap a sample image to view it full size.</p></section><div class="image-modal" id="image-modal" role="dialog" aria-modal="true" aria-label="Full-size notes sample"><button class="image-modal-close" id="image-modal-close" type="button" aria-label="Close full-size image">×</button><img id="modal-image" src="" alt="Full-size notes sample"><p class="image-modal-caption" id="modal-caption"></p></div>
 <div class="pay">
   <div class="pay-inner">
-    <button class="pay-button" id="open-checkout-button" type="button" onclick="openCheckout()">
+    <button class="pay-button" id="pay-now-button" type="button">
       Pay Now ₹199
     </button>
-
-    <form id="checkout-form" hidden
-          style="margin-top:20px;padding:20px;background:#fff;border:2px solid #c5d9e6;border-radius:16px;box-shadow:0 5px 0 #d8e7f1;">
-      <h2 style="margin:0 0 8px;font-size:22px;">Complete Your Order</h2>
-      <p id="checkout-subject" style="color:#526174;margin:0 0 18px;"></p>
-
-      <label for="customer-name" style="display:block;font-weight:700;margin-bottom:7px;">Full Name</label>
-      <input id="customer-name" name="name" type="text" autocomplete="name" required maxlength="80"
-             placeholder="Enter your full name"
-             style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
-
-      <label for="delivery-method" style="display:block;font-weight:700;margin-bottom:7px;">Choose Delivery Method</label>
-      <select id="delivery-method" name="delivery_method" required
-              style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font:16px Roboto,Arial,sans-serif;">
-        <option value="">Select delivery method</option>
-        <option value="email">Email Delivery</option>
-        <option value="telegram">Telegram Delivery</option>
-        <option value="download">Direct Download</option>
-      </select>
-
-      <div id="email-field" hidden>
-        <label for="customer-email" style="display:block;font-weight:700;margin-bottom:7px;">Email Address</label>
-        <input id="customer-email" name="email" type="email" autocomplete="email"
-               placeholder="you@example.com"
-               style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
-      </div>
-
-      <p style="font-size:13px;line-height:1.5;color:#526174;">Order total: <strong>₹199</strong></p>
-      <button id="checkout-submit" type="submit" class="pay-button">Continue to Secure Payment</button>
-      <button type="button" onclick="closeCheckout()"
-              style="width:100%;padding:12px;margin-top:12px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font-weight:700;cursor:pointer;">Cancel</button>
-      <p id="checkout-message" role="status" aria-live="polite" style="font-size:14px;line-height:1.5;"></p>
-    </form>
+    <p id="checkout-message" role="status" aria-live="polite" class="pay-hint"></p>
   </div>
 </div>
 </main>
@@ -165,175 +133,53 @@ document.getElementById('contents-btn').addEventListener('click',()=>toggle(docu
 document.getElementById('description-btn').addEventListener('click',()=>toggle(document.getElementById('description-btn'),document.getElementById('description-panel'),document.getElementById('contents-btn'),document.getElementById('contents-panel')));
 
 
-// WitWarp checkout connection. Use only the public/publishable Supabase key here.
+// WitWarp one-tap Razorpay checkout. No name or delivery-method form.
 const SUPABASE_URL = 'https://ntumxyhzzvarxdlmftmm.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_YYs7U9Dj1YzUr8N9YLXaqg_1n0yg772';
 const CREATE_PURCHASE_URL = SUPABASE_URL + '/functions/v1/create-purchase';
-
-const checkoutForm = document.getElementById('checkout-form');
+const payNowButton = document.getElementById('pay-now-button');
 const checkoutMessage = document.getElementById('checkout-message');
-const deliverySelect = document.getElementById('delivery-method');
-const emailInput = document.getElementById('customer-email');
-const emailField = document.getElementById('email-field');
-const checkoutSubmit = document.getElementById('checkout-submit');
+let paymentStarted = false;
 
-document.getElementById('checkout-subject').textContent = item.title + ' — ₹199';
-
-function openCheckout() {
-  checkoutForm.hidden = false;
-  document.getElementById('open-checkout-button').hidden = true;
-  checkoutMessage.textContent = '';
-  checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  document.getElementById('customer-name').focus({ preventScroll: true });
-}
-
-function closeCheckout() {
-  checkoutForm.hidden = true;
-  document.getElementById('open-checkout-button').hidden = false;
-  checkoutMessage.textContent = '';
-}
-
-deliverySelect.addEventListener('change', () => {
-  const needsEmail = deliverySelect.value === 'email';
-  emailField.hidden = !needsEmail;
-  emailInput.required = needsEmail;
-  if (!needsEmail) emailInput.value = '';
-});
-
-// Prepare the secure Razorpay link while the customer is completing the form.
-// This makes the final button tap much faster when the server responds in advance.
-let preparedPayloadKey = '';
-let preparedPaymentPromise = null;
-let prewarmTimer = null;
-
-function getCheckoutPayload() {
-  const name = document.getElementById('customer-name').value.trim();
-  const deliveryMethod = deliverySelect.value;
-  const email = emailInput.value.trim();
-
-  if (name.length < 2) return null;
-  if (!['email', 'telegram', 'download'].includes(deliveryMethod)) return null;
-  if (deliveryMethod === 'email' && !email) return null;
-
-  return {
-    name,
-    delivery_method: deliveryMethod,
-    email: deliveryMethod === 'email' ? email : '',
-    subject_sku: subject
-  };
-}
-
-function payloadKey(payload) {
-  return JSON.stringify(payload);
-}
-
-async function requestPaymentLink(payload) {
-  const response = await fetch(CREATE_PURCHASE_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_PUBLISHABLE_KEY
-    },
-    body: JSON.stringify(payload)
-  });
-
-  const result = await response.json().catch(() => ({}));
-  if (!response.ok || !result.success || !result.payment_url) {
-    throw new Error(result.error || 'Unable to start payment. Please try again.');
-  }
-
-  const paymentUrl = new URL(result.payment_url);
-  if (paymentUrl.protocol !== 'https:' ||
-      !['rzp.io', 'api.razorpay.com'].includes(paymentUrl.hostname)) {
-    throw new Error('The payment service returned an unexpected link. Please contact WitWarp.');
-  }
-  return paymentUrl.href;
-}
-
-function prewarmPaymentLink() {
-  clearTimeout(prewarmTimer);
-  prewarmTimer = setTimeout(() => {
-    const payload = getCheckoutPayload();
-    if (!payload) return;
-
-    const key = payloadKey(payload);
-    if (key === preparedPayloadKey && preparedPaymentPromise) return;
-
-    preparedPayloadKey = key;
-    preparedPaymentPromise = requestPaymentLink(payload).catch(error => {
-      // Keep the form usable; the next submit can retry.
-      if (preparedPayloadKey === key) {
-        preparedPayloadKey = '';
-        preparedPaymentPromise = null;
-      }
-      return { prewarmError: error };
-    });
-  }, 500);
-}
-
-document.getElementById('customer-name').addEventListener('input', prewarmPaymentLink);
-emailInput.addEventListener('input', prewarmPaymentLink);
-deliverySelect.addEventListener('change', prewarmPaymentLink);
-
-checkoutForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  checkoutMessage.textContent = '';
-
-  if (!SUPABASE_PUBLISHABLE_KEY ||
-      SUPABASE_PUBLISHABLE_KEY === 'PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE') {
-    checkoutMessage.textContent = 'Checkout is not configured yet. Please contact WitWarp before paying.';
-    return;
-  }
-
-  const payload = getCheckoutPayload();
-  if (!payload) {
-    const name = document.getElementById('customer-name').value.trim();
-    if (name.length < 2) {
-      checkoutMessage.textContent = 'Please enter your full name.';
-      return;
-    }
-    if (!['email', 'telegram', 'download'].includes(deliverySelect.value)) {
-      checkoutMessage.textContent = 'Please choose a delivery method.';
-      return;
-    }
-    if (deliverySelect.value === 'email' && !emailInput.value.trim()) {
-      checkoutMessage.textContent = 'Please enter your email address.';
-      return;
-    }
-    return;
-  }
-
-  checkoutSubmit.disabled = true;
-  checkoutSubmit.textContent = 'Opening secure payment…';
+payNowButton.addEventListener('click', async () => {
+  if (paymentStarted) return;
+  paymentStarted = true;
+  payNowButton.disabled = true;
+  payNowButton.textContent = 'Opening secure payment…';
+  checkoutMessage.textContent = 'Please wait while we securely prepare your ₹199 payment.';
 
   try {
-    const key = payloadKey(payload);
-    let paymentUrl;
+    const response = await fetch(CREATE_PURCHASE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_PUBLISHABLE_KEY
+      },
+      body: JSON.stringify({
+        name: 'WitWarp Customer',
+        delivery_method: 'download',
+        email: '',
+        subject_sku: subject
+      })
+    });
 
-    // Reuse the link request started while the customer filled out the form.
-    if (key === preparedPayloadKey && preparedPaymentPromise) {
-      const prepared = await preparedPaymentPromise;
-      if (typeof prepared === 'string') {
-        paymentUrl = prepared;
-      } else {
-        throw prepared.prewarmError || new Error('Unable to start payment. Please try again.');
-      }
-    } else {
-      paymentUrl = await requestPaymentLink(payload);
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success || !result.payment_url) {
+      throw new Error(result.error || 'Unable to start payment. Please try again.');
     }
 
-    window.location.assign(paymentUrl);
+    const paymentUrl = new URL(result.payment_url);
+    if (paymentUrl.protocol !== 'https:' || !['rzp.io', 'api.razorpay.com'].includes(paymentUrl.hostname)) {
+      throw new Error('The payment service returned an unexpected link. Please contact WitWarp.');
+    }
+    window.location.assign(paymentUrl.href);
   } catch (error) {
-    checkoutMessage.textContent = error instanceof Error
-      ? error.message
-      : 'Something went wrong. Please try again.';
-    checkoutSubmit.disabled = false;
-    checkoutSubmit.textContent = 'Continue to Secure Payment';
-    preparedPayloadKey = '';
-    preparedPaymentPromise = null;
+    checkoutMessage.textContent = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+    paymentStarted = false;
+    payNowButton.disabled = false;
+    payNowButton.textContent = 'Pay Now ₹199';
   }
 });
-
 </script>
 </body>
 </html>
