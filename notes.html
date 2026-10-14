@@ -114,7 +114,7 @@ document.getElementById('description-copy').innerHTML=item.description.map(x=>'<
 function toggle(btn,panel,otherBtn,otherPanel){const opening=panel.hidden;panel.hidden=!opening;btn.setAttribute('aria-expanded',String(opening));otherPanel.hidden=true;otherBtn.setAttribute('aria-expanded','false')}
 document.getElementById('contents-btn').addEventListener('click',()=>toggle(document.getElementById('contents-btn'),document.getElementById('contents-panel'),document.getElementById('description-btn'),document.getElementById('description-panel')));
 document.getElementById('description-btn').addEventListener('click',()=>toggle(document.getElementById('description-btn'),document.getElementById('description-panel'),document.getElementById('contents-btn'),document.getElementById('contents-panel')));
-// Accessible swipe-to-pay control. Redirect only after the user completes a rightward drag.
+// Swipe-to-pay: use global pointer tracking so dragging works reliably on mobile browsers.
 (()=>{
  const slider=document.getElementById('swipe-pay');
  const knob=document.getElementById('swipe-pay-knob');
@@ -122,9 +122,19 @@ document.getElementById('description-btn').addEventListener('click',()=>toggle(d
  const hint=document.getElementById('pay-hint');
  if(!slider||!knob)return;
  const paymentUrl='https://rzp.io/rzp/XlVAPZf';
- let startX=0, startLeft=7, dragging=false, completed=false;
- const maxLeft=()=>Math.max(7,slider.clientWidth-knob.offsetWidth-7);
- const setLeft=(left)=>{const max=maxLeft();left=Math.max(7,Math.min(max,left));knob.style.left=left+'px';const pct=Math.round(((left-7)/Math.max(1,max-7))*100);knob.setAttribute('aria-valuenow',String(pct));return {left,max,pct};};
- const reset=()=>{dragging=false;slider.classList.remove('is-dragging');knob.style.left='7px';knob.setAttribute('aria-valuenow','0');};
- const finish=()=>{if(completed)return;completed=true;slider.classList.add('is-complete');label.textContent='Opening payment…';hint.textContent='Redirecting you to Razorpay securely.';knob.setAttribute('aria-valuenow','100');knob.style.left=maxLeft()+'px';window.location.href=paymentUrl;};
- knob.addEventListener('pointerdown',e=>{if(completed)return;dragging=true;startX=
+ let dragging=false, completed=false, startX=0, startLeft=7, activePointer=null;
+ const minLeft=7;
+ const maxLeft=()=>Math.max(minLeft,slider.clientWidth-knob.offsetWidth-7);
+ const currentLeft=()=>parseFloat(knob.style.left || getComputedStyle(knob).left) || minLeft;
+ const setLeft=(left)=>{
+   const max=maxLeft(); left=Math.max(minLeft,Math.min(max,left));
+   knob.style.left=left+'px';
+   const pct=Math.round(((left-minLeft)/Math.max(1,max-minLeft))*100);
+   knob.setAttribute('aria-valuenow',String(pct));
+   return {left,max,pct};
+ };
+ const reset=()=>{dragging=false;activePointer=null;slider.classList.remove('is-dragging');setLeft(minLeft);};
+ const finish=()=>{
+   if(completed)return; completed=true; dragging=false;
+   slider.classList.remove('is-dragging'); slider.classList.add('is-complete');
+   label.textContent='Opening payment…'; hint.textContent='Redir
