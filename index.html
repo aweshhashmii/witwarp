@@ -35,7 +35,9 @@ body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform
 .subject{color:#111;text-decoration:none;text-align:center;display:block}
 .cover{height:auto;aspect-ratio:1.04/1;border-radius:12px;background:linear-gradient(145deg,#111827,#050505);display:flex;flex-direction:column;justify-content:space-between;text-align:left;padding:17px;color:#fff;overflow:hidden;box-shadow:0 2px 4px #00000018;transition:transform .15s}
 .subject:hover .cover{transform:translateY(-5px) scale(1.012)}
-.subject{transition:transform .25s ease,opacity .6s ease;opacity:0;transform:translateY(18px)}
+.subject{transition:transform .25s ease,opacity .6s ease;opacity:1;transform:translateY(0)}
+/* Hide cards for scroll-reveal only after JavaScript confirms it is running. */
+.js-ready .subject:not(.in-view){opacity:0;transform:translateY(18px)}
 .subject.in-view{opacity:1;transform:translateY(0)}
 .cover.image-cover{display:block;position:relative;padding:0;aspect-ratio:3/4;background:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.78);box-shadow:0 12px 28px rgba(7,86,155,.15),inset 0 1px 0 rgba(255,255,255,.8);isolation:isolate;transition:transform .28s ease,box-shadow .28s ease}
 .cover.image-cover img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
@@ -110,6 +112,8 @@ body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 const cards=document.querySelectorAll('.subject');
+// Enable scroll reveals only when JavaScript is available; otherwise cards remain visible.
+document.body.classList.add('js-ready');
 if('IntersectionObserver' in window){
  const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');reveal.unobserve(entry.target)}}),{threshold:.12});
  cards.forEach((card,i)=>{card.style.transitionDelay=(i%3)*70+'ms';reveal.observe(card)});
