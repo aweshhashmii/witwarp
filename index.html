@@ -90,10 +90,15 @@ body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform
 .review-form input,.review-form select,.review-form textarea{width:100%;font:16px Roboto,Arial,sans-serif;padding:11px;border:1.5px solid #9ebbd5;border-radius:9px;background:#fff;color:#111}
 .review-form textarea{resize:vertical}
 .review-form button{justify-self:start;cursor:pointer}
-.review-card{max-width:620px;margin:12px auto;padding:16px;background:#fff;border:1.5px solid #111;border-radius:12px;box-shadow:3px 4px 0 #111}
-.review-card h3{margin:0 0 5px;font-size:17px}
-.review-stars{color:#07569b;letter-spacing:2px;font-size:18px}
-.review-card p{margin:8px 0 0;line-height:1.5;overflow-wrap:anywhere}
+.review-carousel{max-width:620px;margin:18px auto 28px}
+.review-card{box-sizing:border-box;width:100%;min-height:190px;margin:0;padding:22px;background:#fff;border:1.5px solid #111;border-radius:16px;box-shadow:4px 5px 0 #111;touch-action:pan-y}
+.review-card h3{margin:0 0 8px;font-size:20px}
+.review-stars{color:#07569b;letter-spacing:2px;font-size:22px}
+.review-card p{margin:12px 0 0;line-height:1.5;overflow-wrap:anywhere;font-size:17px}
+.review-carousel-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:16px}
+.review-carousel-controls button{font:700 16px Roboto,Arial,sans-serif;padding:9px 16px;background:#fff;border:1.5px solid #111;border-radius:10px;box-shadow:2px 3px 0 #111;cursor:pointer}
+.review-carousel-controls button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.review-carousel-count{font:700 14px Roboto,Arial,sans-serif;min-width:48px;text-align:center}
 </style>
 </head>
 <body id="top">
@@ -134,7 +139,7 @@ body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform
 <section class="wrap section" id="student-reviews">
 <h2>Student Reviews</h2>
 <p class="intro">Have you used WitWarp notes? Share your experience with other students.</p>
-<div id="review-list" aria-live="polite"><p>Loading student reviews…</p></div>
+<div class="review-carousel" id="review-carousel"><div id="review-list" aria-live="polite"><p>Loading student reviews…</p></div><div class="review-carousel-controls" id="review-controls" hidden><button type="button" id="review-prev" aria-label="Previous review">← Previous</button><span class="review-carousel-count" id="review-count" aria-live="polite"></span><button type="button" id="review-next" aria-label="Next review">Next →</button></div></div>
 <form id="review-form" class="review-form">
 <h3>Leave a review</h3>
 <label for="review-name">Your name</label>
@@ -177,16 +182,77 @@ if('IntersectionObserver' in window){
   const form = document.getElementById("review-form");
   const status = document.getElementById("review-status");
   const headers = {"apikey":SUPABASE_PUBLISHABLE_KEY,"Authorization":"Bearer "+SUPABASE_PUBLISHABLE_KEY,"Content-Type":"application/json"};
+  let allReviews = [];
+  let currentReview = 0;
+
+  function renderReview() {
+    list.replaceChildren();
+    if (!allReviews.length) {
+      const p = document.createElement("p");
+      p.className = "intro";
+      p.textContent = "No reviews yet. Be the first to share your experience!";
+      list.appendChild(p);
+      document.getElementById("review-controls").hidden = true;
+      return;
+    }
+
+    const v = allReviews[currentReview];
+    const card = document.createElement("article");
+    card.className = "review-card";
+    card.setAttribute("aria-label", "Review " + (currentReview + 1) + " of " + allReviews.length);
+    const h = document.createElement("h3");
+    h.textContent = v.name;
+    const stars = document.createElement("div");
+    stars.className = "review-stars";
+    stars.textContent = "★".repeat(Number(v.rating)) + "☆".repeat(5 - Number(v.rating));
+    stars.setAttribute("aria-label", Number(v.rating) + " out of 5 stars");
+    const p = document.createElement("p");
+    p.textContent = v.comment;
+    card.append(h, stars, p);
+    list.appendChild(card);
+
+    const controls = document.getElementById("review-controls");
+    controls.hidden = allReviews.length < 2;
+    document.getElementById("review-count").textContent = (currentReview + 1) + " / " + allReviews.length;
+    document.getElementById("review-prev").disabled = currentReview === 0;
+    document.getElementById("review-next").disabled = currentReview === allReviews.length - 1;
+  }
+
   async function loadReviews() {
     try {
-      const r = await fetch(SUPABASE_URL+"/rest/v1/reviews?select=name,rating,comment,created_at&order=created_at.desc",
-        {headers:{"apikey":SUPABASE_PUBLISHABLE_KEY,"Authorization":"Bearer "+SUPABASE_PUBLISHABLE_KEY}});
+      const r = await fetch(SUPABASE_URL + "/rest/v1/reviews?select=name,rating,comment,created_at&order=created_at.desc",
+        {headers: {"apikey": SUPABASE_PUBLISHABLE_KEY, "Authorization": "Bearer " + SUPABASE_PUBLISHABLE_KEY}});
       if (!r.ok) throw new Error();
-      const reviews = await r.json(); list.replaceChildren();
-      if (!reviews.length) { const p=document.createElement("p"); p.className="intro"; p.textContent="No reviews yet. Be the first to share your experience!"; list.appendChild(p); return; }
-      reviews.forEach(v => { const card=document.createElement("article"); card.className="review-card"; const h=document.createElement("h3"); h.textContent=v.name; const stars=document.createElement("div"); stars.className="review-stars"; stars.textContent="★★★★★"; stars.setAttribute("aria-label","5 out of 5 stars"); const p=document.createElement("p"); p.textContent=v.comment; card.append(h,stars,p); list.appendChild(card); });
-    } catch { list.textContent="Reviews are temporarily unavailable. Please try again later."; }
+      allReviews = await r.json();
+      currentReview = 0; // Newest review first.
+      renderReview();
+    } catch {
+      list.textContent = "Reviews are temporarily unavailable. Please try again later.";
+    }
   }
+
+  document.getElementById("review-prev").addEventListener("click", () => {
+    if (currentReview > 0) { currentReview--; renderReview(); }
+  });
+  document.getElementById("review-next").addEventListener("click", () => {
+    if (currentReview < allReviews.length - 1) { currentReview++; renderReview(); }
+  });
+
+  // Mobile swipe: swipe left for older reviews, right for newer reviews.
+  let touchStartX = 0;
+  const reviewCarousel = document.getElementById("review-carousel");
+  reviewCarousel.addEventListener("touchstart", e => {
+    if (e.changedTouches.length) touchStartX = e.changedTouches[0].clientX;
+  }, {passive: true});
+  reviewCarousel.addEventListener("touchend", e => {
+    if (!e.changedTouches.length || allReviews.length < 2) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(deltaX) < 45) return;
+    if (deltaX < 0 && currentReview < allReviews.length - 1) currentReview++;
+    else if (deltaX > 0 && currentReview > 0) currentReview--;
+    renderReview();
+  }, {passive: true});
+
   form.addEventListener("submit", async e => {
     e.preventDefault(); status.textContent="Submitting…";
     const payload={name:form.elements.name.value.trim(),rating:Number(form.elements.rating.value),comment:form.elements.comment.value.trim(),approved:false,verified_purchase:false};
