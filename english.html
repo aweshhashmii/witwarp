@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b73">
+  <title>English Notes | WitWarp</title>
+  <style>
+    :root { --blue:#2457df; --navy:#0b1d52; --ink:#111; --paper:#f7faff; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; color:var(--ink); background:var(--paper);
+      font-family:Roboto,Arial,sans-serif;
+    }
+    header {
+      padding:22px 18px; text-align:center; color:white;
+      background:linear-gradient(135deg,#102b73,#071638);
+      border-bottom:3px solid #111;
+    }
+    header a { color:white; text-decoration:none; font-weight:800; letter-spacing:2px; }
+    main { width:min(100% - 28px,900px); margin:24px auto 48px; }
+    .cover {
+      display:block; width:100%; height:auto; border-radius:18px;
+      border:2px solid #111; box-shadow:5px 6px 0 #111;
+      background:#102b73;
+    }
+    .actions { text-align:center; margin:26px 0; }
+    .btn {
+      display:inline-block; padding:14px 22px; border:2px solid #111;
+      border-radius:12px; box-shadow:4px 5px 0 #111;
+      background:var(--blue); color:#fff; text-decoration:none;
+      font-weight:800; font-size:17px;
+    }
+    .panel {
+      margin-top:28px; padding:22px; border:2px solid #111; border-radius:16px;
+      box-shadow:4px 5px 0 #111; background:#fff;
+    }
+    h1 { margin:0 0 10px; font-size:clamp(28px,5vw,42px); }
+    p { line-height:1.65; }
+    .muted { color:#46516b; }
+    .back { display:inline-block; margin-top:10px; color:#174acb; font-weight:700; }
+  </style>
+</head>
+<body>
+  <header><a href="./index.html">WITWARP / STUDY NOTES</a></header>
+  <main>
+    <img class="cover" src="./english-cover.png" alt="WitWarp English Notes cover">
+    <div class="actions">
+      <a class="btn" href="#english-notes">Explore English Notes ↓</a>
+    </div>
+    <section class="panel" id="english-notes">
+      <h1>English Notes</h1>
+      <p class="muted">Choose English study notes here. More notes can be added to this page as they become available.</p>
+      <p>No English notes have been added yet.</p>
+      <a class="back" href="./index.html">← Back to WitWarp homepage</a>
+    </section>
+  </main>
+</body>
+</html>
