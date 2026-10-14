@@ -15,18 +15,18 @@ html{scroll-behavior:smooth;scroll-padding-top:18px}
 body{margin:0;background:#fff;color:#090909;font-family:Roboto,Arial,Helvetica,sans-serif;overflow-x:hidden}
 body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform:translateX(-50%);width:min(1000px,120vw);height:520px;pointer-events:none;background:radial-gradient(ellipse at 50% 15%,rgba(8,127,232,.12),transparent 68%);filter:blur(18px);animation:glowBreath 7s ease-in-out infinite alternate}
 .wrap{width:min(100% - 36px,980px);margin:auto}
-.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0 26px;gap:14px;animation:fadeDown .65s ease both}
-.brand img{display:block;width:76px;height:55px;object-fit:contain;object-position:left center}
-.nav{display:flex;gap:clamp(10px,3vw,24px);align-items:center;padding:10px 14px;background:rgba(255,255,255,.68);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(8,127,232,.18);border-radius:18px;box-shadow:0 8px 28px rgba(7,86,155,.09)}
+.top{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:14px 0 24px;gap:12px;animation:fadeDown .65s ease both}
+.brand{display:flex;align-items:center;justify-content:flex-start;min-height:60px;text-decoration:none}.brand img{display:block;width:90px;height:64px;object-fit:contain;object-position:left center}
+.nav{width:100%;display:flex;justify-content:space-around;gap:8px;align-items:center;padding:13px 12px;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(8,127,232,.18);border-radius:16px;box-shadow:0 6px 20px rgba(7,86,155,.07)}
 .nav a{font-family:Roboto,Arial,sans-serif;font-weight:600;color:#172334;text-decoration:none;font-size:clamp(13px,3.3vw,16px);white-space:nowrap;transition:color .18s ease}
 .nav a:hover{color:var(--blue)}
 .nav a:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:4px}
-.hero{padding:24px 0 56px;animation:heroReveal .8s .08s cubic-bezier(.2,.7,.2,1) both}
+.hero{padding:14px 0 56px;animation:heroReveal .8s .08s cubic-bezier(.2,.7,.2,1) both}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}.hello-champ{display:flex;justify-content:center;align-items:center;margin:0 auto 10px;width:100%;max-width:290px;height:170px;overflow:hidden}.hello-champ img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 .hero h1{font-size:clamp(2.25rem,8vw,4.4rem);line-height:.98;letter-spacing:-.045em;max-width:760px;margin:8px 0 24px}
 .hero p{font:clamp(1.05rem,4vw,1.35rem)/1.35 Georgia,serif;color:#222;max-width:620px;margin:0 0 24px}
 .actions{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .btn{display:inline-flex;transition:transform .22s ease,box-shadow .22s ease,background .22s ease;align-items:center;justify-content:center;min-height:46px;padding:12px 16px;border:1px solid #cfe2f7;border-radius:14px;font-weight:750;font-size:16px;text-decoration:none;color:#111;background:#fff}
-.btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;border-color:var(--blue);box-shadow:0 5px 14px #087fe82b;background-size:160% 160%;animation:buttonGlow 5s ease-in-out infinite}
+.btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;border-color:var(--blue);box-shadow:0 4px 10px #087fe822}
 .btn.yellow{background:var(--blue-light);border-color:var(--blue-light);color:var(--blue-dark)}
 .section{padding:22px 0 46px}
 .section h2{text-align:center;font-size:clamp(2rem,6vw,3rem);margin:0 0 10px;letter-spacing:-.035em}
@@ -61,58 +61,10 @@ body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform
 @keyframes glowBreath{from{opacity:.55;transform:translateX(-50%) scale(.96)}to{opacity:1;transform:translateX(-50%) scale(1.04)}}
 @keyframes buttonGlow{0%,100%{background-position:0% 50%;box-shadow:0 5px 14px #087fe82b}50%{background-position:100% 50%;box-shadow:0 7px 22px #087fe844}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.subject{opacity:1;transform:none}}
-@media(max-width:420px){.top{gap:8px}.brand img{width:76px!important;height:58px!important}.nav{gap:8px;padding:9px 10px}.nav a{font-size:12px}}
-@media(min-width:700px){.hero{padding-top:45px}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.cover{aspect-ratio:1.15/1}.brand img{width:90px;height:64px}}
+@media(max-width:420px){.top{gap:10px}.brand img{width:88px!important;height:62px!important}.nav{gap:4px;padding:12px 8px}.nav a{font-size:13px}.hello-champ{height:150px;max-width:250px}}
+@media(min-width:700px){.top{padding-top:18px}.hero{padding-top:28px}.hero-layout{grid-template-columns:minmax(0,1.15fr) minmax(240px,.85fr);align-items:center;gap:26px}.hello-champ{height:300px;max-width:100%;margin:0}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.cover{aspect-ratio:1.15/1}.brand img{width:90px;height:64px}}
 @font-face{font-family:"Neue Freigeist";src:url("./NeueFreigeistTest-Black-BF670f2d936d319.otf") format("opentype");font-weight:900;font-style:normal;font-display:swap}
 .hero h1,.section h2,#how-to-buy h2,#contact h2{font-family:"Neue Freigeist",sans-serif;font-weight:900}
-
-/* WitWarp vector-inspired blue UI refresh. Existing fonts and logo are intentionally unchanged. */
-:root{--blue:#087fe8;--blue-dark:#07569b;--blue-light:#edf6ff;--line:#b9d8f4}
-body{background:#f8fbff}
-body::before{background:radial-gradient(ellipse at 50% 10%,rgba(8,127,232,.10),transparent 70%);animation:none;filter:blur(12px)}
-.top{padding:16px 14px;margin-top:10px;border:1px solid #c7dff5;border-radius:18px;background:rgba(255,255,255,.94);box-shadow:0 5px 18px rgba(7,86,155,.07)}
-.brand img{object-position:left center}
-.nav{gap:clamp(8px,2.6vw,20px);background:#fff;border:1px solid #c7dff5;border-radius:12px;box-shadow:0 3px 10px rgba(7,86,155,.05);backdrop-filter:none;-webkit-backdrop-filter:none}
-.nav a{color:#173c60}
-.hero{padding:28px 0 44px;animation:none}
-.hero h1{letter-spacing:-.045em}
-.hero p{color:#314256}
-.btn{border-radius:10px;min-height:44px;padding:11px 17px;border:1px solid #b9d8f4;box-shadow:none;font-weight:700}
-.btn.primary{background:var(--blue);border-color:var(--blue);box-shadow:0 4px 0 #07569b;background-size:auto;animation:none}
-.btn.primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 5px 0 #063f73}
-.btn:not(.primary):hover{background:#edf6ff;border-color:#8dbce9}
-.section{padding:24px 0 42px}
-.section h2{color:#102e4c}
-.intro{color:#42546a}
-.grid{gap:18px 14px}
-.subject{padding:8px;border:1px solid #c8def3;border-radius:14px;background:#fff;box-shadow:0 4px 12px rgba(7,86,155,.06);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,opacity .6s ease}
-.subject:hover{transform:translateY(-3px);border-color:#5ca8ee;box-shadow:0 8px 18px rgba(7,86,155,.12)}
-.cover.image-cover{border:1px solid #c5dff7;border-radius:9px;box-shadow:none;overflow:hidden;background:#edf6ff}
-.cover.image-cover::after{content:none}
-.subject:hover .cover.image-cover{box-shadow:none}
-.subject-label{font-family:Georgia,serif;color:#123f69;font-weight:bold;font-size:19px;margin:10px 0 4px}
-#how-to-buy{padding-top:16px;padding-bottom:40px}
-#how-to-buy h2{color:#102e4c}
-.steps{gap:12px}
-.step{grid-template-columns:38px 1fr;gap:13px;padding:16px;border:1px solid #c8def3;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(7,86,155,.045)}
-.num{height:34px;width:34px;padding:5px 0;background:#e5f2ff;border:1px solid #a9d1f6;border-radius:8px;color:#07569b}
-.step h3{color:#123f69}
-.step p{color:#43556b}
-.contact{background:#07569b;color:#fff;border-top:4px solid #087fe8}
-.contact a{color:#e1f1ff}
-.footer{background:#062f54}
-.toplink{background:#087fe8;border-radius:10px;box-shadow:0 3px 10px rgba(7,86,155,.2)}
-@media(max-width:420px){
- .top{padding:12px 10px}
- .brand img{width:76px!important;height:58px!important}
- .nav{gap:8px;padding:9px 10px}
- .nav a{font-size:12px}
- .hero{padding-top:22px}
- .subject{padding:6px}
- .subject-label{font-size:17px}
-}
-@media(prefers-reduced-motion:reduce){body::before{animation:none}}
-
 </style>
 </head>
 <body id="top">
@@ -122,9 +74,12 @@ body::before{background:radial-gradient(ellipse at 50% 10%,rgba(8,127,232,.10),t
 </header>
 <main>
 <section class="wrap hero">
-<h1>Affordable notes<br>for competitive<br>exam prep.</h1>
+<div class="hero-layout">
+<div class="hero-copy"><h1>Affordable notes<br>for competitive<br>exam prep.</h1>
 <p>WitWarp sells exam-focused study notes at prices students can actually pay.</p>
-<div class="actions"><a class="btn primary" href="#notes">See the notes</a><a class="btn" href="#contact">Message WitWarp</a></div>
+<div class="actions"><a class="btn primary" href="#notes">See the notes</a><a class="btn" href="#contact">Message WitWarp</a></div></div>
+<div class="hello-champ"><img src="./hello-champ.png" alt="Hello Champ! WitWarp mascot greeting"></div>
+</div>
 </section>
 <section class="wrap section" id="notes">
 <h2>Notes</h2>
