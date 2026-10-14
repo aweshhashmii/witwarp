@@ -15,11 +15,11 @@ html{scroll-behavior:smooth;scroll-padding-top:18px}
 body{margin:0;background-color:#f8fbff;background-image:radial-gradient(#a9c9e7 1px,transparent 1px);background-size:22px 22px;color:#090909;font-family:Roboto,Arial,Helvetica,sans-serif;overflow-x:hidden}
 body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform:translateX(-50%);width:min(1000px,120vw);height:650px;pointer-events:none;background:radial-gradient(ellipse at 50% 15%,rgba(8,127,232,.15),transparent 70%);filter:blur(18px)}
 .wrap{width:min(100% - 36px,980px);margin:auto}
-.top{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:14px 0 24px;gap:12px;animation:fadeDown .65s ease both}
-.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:128px;padding:8px 12px;background:rgba(255,255,255,.94);border:1.5px solid #c5d9ea;border-radius:22px;box-shadow:0 4px 0 rgba(7,86,155,.08),0 10px 24px rgba(7,86,155,.06);overflow:hidden}
-.header-mascot{display:block;width:clamp(170px,44vw,250px);max-width:52%;height:108px;object-fit:contain;object-position:center;flex:0 1 auto;margin-right:0;background:transparent}
-.brand{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-start;min-height:60px;text-decoration:none}
-.brand img{display:block;width:90px;height:64px;object-fit:contain;object-position:left center}
+.top{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:8px 0 18px;gap:8px;animation:fadeDown .65s ease both}
+.top-row{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:8px;min-height:88px;padding:6px 12px;background:rgba(255,255,255,.94);border:1.5px solid #c5d9ea;border-radius:18px;box-shadow:0 4px 0 rgba(7,86,155,.08),0 8px 18px rgba(7,86,155,.06);overflow:hidden}
+.header-mascot{display:block;width:clamp(120px,36vw,205px);max-width:58%;height:72px;object-fit:contain;object-position:center;flex:0 1 auto;margin:0;background:transparent}
+.brand{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-start;min-height:52px;text-decoration:none}
+.brand img{display:block;width:76px;height:52px;object-fit:contain;object-position:left center}
 .nav{width:100%;display:flex;justify-content:space-around;gap:8px;align-items:center;padding:13px 12px;background:#fff;border:1.5px solid #c5d9ea;border-radius:15px;box-shadow:0 4px 0 rgba(7,86,155,.08),0 8px 18px rgba(7,86,155,.05)}
 .nav a{font-family:Roboto,Arial,sans-serif;font-weight:600;color:#172334;text-decoration:none;font-size:clamp(13px,3.3vw,16px);white-space:nowrap;transition:color .18s ease}
 .nav a:hover{color:var(--blue)}
@@ -64,8 +64,8 @@ body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform
 @keyframes glowBreath{from{opacity:.55;transform:translateX(-50%) scale(.96)}to{opacity:1;transform:translateX(-50%) scale(1.04)}}
 @keyframes buttonGlow{0%,100%{background-position:0% 50%;box-shadow:0 5px 14px #087fe82b}50%{background-position:100% 50%;box-shadow:0 7px 22px #087fe844}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.subject{opacity:1;transform:none}}
-@media(max-width:420px){.top{gap:10px}.top-row{min-height:118px;gap:5px;padding:7px 8px}.brand img{width:88px!important;height:62px!important}.header-mascot{width:clamp(180px,55vw,230px);max-width:62%;height:126px;object-fit:cover;object-position:84% 50%;margin-right:-7px}.nav{gap:4px;padding:12px 8px}.nav a{font-size:13px}}
-@media(min-width:700px){.top{padding-top:18px}.top-row{min-height:145px}.header-mascot{width:280px;max-width:55%;height:140px;object-position:84% 50%}.hero{padding-top:28px}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}.cover{aspect-ratio:1.15/1}.brand img{width:90px;height:64px}}
+@media(max-width:420px){.top{gap:8px}.top-row{min-height:76px;gap:4px;padding:5px 8px}.brand img{width:70px!important;height:48px!important}.header-mascot{width:clamp(115px,39vw,170px);max-width:60%;height:62px;object-fit:contain;object-position:center;margin:0}.nav{gap:4px;padding:10px 8px}.nav a{font-size:13px}}
+@media(min-width:700px){.top{padding-top:14px}.top-row{min-height:100px}.header-mascot{width:220px;max-width:45%;height:78px;object-position:center}.hero{padding-top:22px}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}.cover{aspect-ratio:1.15/1}.brand img{width:82px;height:58px}}
 @font-face{font-family:"Neue Freigeist";src:url("./NeueFreigeistTest-Black-BF670f2d936d319.otf") format("opentype");font-weight:900;font-style:normal;font-display:swap}
 .hero h1,.section h2,#how-to-buy h2,#contact h2{font-family:"Neue Freigeist",sans-serif;font-weight:900}
 .top-row{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;min-height:132px!important;padding:4px 0!important;gap:12px!important}
@@ -99,6 +99,13 @@ body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform
 .review-carousel-controls button{font:700 16px Roboto,Arial,sans-serif;padding:9px 16px;background:#fff;border:1.5px solid #111;border-radius:10px;box-shadow:2px 3px 0 #111;cursor:pointer}
 .review-carousel-controls button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 .review-carousel-count{font:700 14px Roboto,Arial,sans-serif;min-width:48px;text-align:center}
+
+/* Compact header: WitWarp left, Hello Champ right */
+.top-row{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;min-height:76px!important}
+.brand{order:0!important;flex:0 0 auto!important}
+.header-mascot{order:1!important;margin-left:auto!important;object-fit:contain!important}
+@media(max-width:420px){.top-row{min-height:72px!important;padding:5px 8px!important}.brand img{width:68px!important;height:48px!important}.header-mascot{width:clamp(110px,38vw,160px)!important;height:58px!important;max-width:62%!important}}
+
 </style>
 </head>
 <body id="top">
