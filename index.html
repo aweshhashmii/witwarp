@@ -65,6 +65,54 @@ body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform
 @media(min-width:700px){.hero{padding-top:45px}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.cover{aspect-ratio:1.15/1}.brand img{width:90px;height:64px}}
 @font-face{font-family:"Neue Freigeist";src:url("./NeueFreigeistTest-Black-BF670f2d936d319.otf") format("opentype");font-weight:900;font-style:normal;font-display:swap}
 .hero h1,.section h2,#how-to-buy h2,#contact h2{font-family:"Neue Freigeist",sans-serif;font-weight:900}
+
+/* WitWarp vector-inspired blue UI refresh. Existing fonts and logo are intentionally unchanged. */
+:root{--blue:#087fe8;--blue-dark:#07569b;--blue-light:#edf6ff;--line:#b9d8f4}
+body{background:#f8fbff}
+body::before{background:radial-gradient(ellipse at 50% 10%,rgba(8,127,232,.10),transparent 70%);animation:none;filter:blur(12px)}
+.top{padding:16px 14px;margin-top:10px;border:1px solid #c7dff5;border-radius:18px;background:rgba(255,255,255,.94);box-shadow:0 5px 18px rgba(7,86,155,.07)}
+.brand img{object-position:left center}
+.nav{gap:clamp(8px,2.6vw,20px);background:#fff;border:1px solid #c7dff5;border-radius:12px;box-shadow:0 3px 10px rgba(7,86,155,.05);backdrop-filter:none;-webkit-backdrop-filter:none}
+.nav a{color:#173c60}
+.hero{padding:28px 0 44px;animation:none}
+.hero h1{letter-spacing:-.045em}
+.hero p{color:#314256}
+.btn{border-radius:10px;min-height:44px;padding:11px 17px;border:1px solid #b9d8f4;box-shadow:none;font-weight:700}
+.btn.primary{background:var(--blue);border-color:var(--blue);box-shadow:0 4px 0 #07569b;background-size:auto;animation:none}
+.btn.primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 5px 0 #063f73}
+.btn:not(.primary):hover{background:#edf6ff;border-color:#8dbce9}
+.section{padding:24px 0 42px}
+.section h2{color:#102e4c}
+.intro{color:#42546a}
+.grid{gap:18px 14px}
+.subject{padding:8px;border:1px solid #c8def3;border-radius:14px;background:#fff;box-shadow:0 4px 12px rgba(7,86,155,.06);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,opacity .6s ease}
+.subject:hover{transform:translateY(-3px);border-color:#5ca8ee;box-shadow:0 8px 18px rgba(7,86,155,.12)}
+.cover.image-cover{border:1px solid #c5dff7;border-radius:9px;box-shadow:none;overflow:hidden;background:#edf6ff}
+.cover.image-cover::after{content:none}
+.subject:hover .cover.image-cover{box-shadow:none}
+.subject-label{font-family:Georgia,serif;color:#123f69;font-weight:bold;font-size:19px;margin:10px 0 4px}
+#how-to-buy{padding-top:16px;padding-bottom:40px}
+#how-to-buy h2{color:#102e4c}
+.steps{gap:12px}
+.step{grid-template-columns:38px 1fr;gap:13px;padding:16px;border:1px solid #c8def3;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(7,86,155,.045)}
+.num{height:34px;width:34px;padding:5px 0;background:#e5f2ff;border:1px solid #a9d1f6;border-radius:8px;color:#07569b}
+.step h3{color:#123f69}
+.step p{color:#43556b}
+.contact{background:#07569b;color:#fff;border-top:4px solid #087fe8}
+.contact a{color:#e1f1ff}
+.footer{background:#062f54}
+.toplink{background:#087fe8;border-radius:10px;box-shadow:0 3px 10px rgba(7,86,155,.2)}
+@media(max-width:420px){
+ .top{padding:12px 10px}
+ .brand img{width:76px!important;height:58px!important}
+ .nav{gap:8px;padding:9px 10px}
+ .nav a{font-size:12px}
+ .hero{padding-top:22px}
+ .subject{padding:6px}
+ .subject-label{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
+
 </style>
 </head>
 <body id="top">
