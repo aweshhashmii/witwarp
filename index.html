@@ -15,13 +15,13 @@ html{scroll-behavior:smooth;scroll-padding-top:18px}
 body{margin:0;background:#fff;color:#090909;font-family:Roboto,Arial,Helvetica,sans-serif;overflow-x:hidden}
 body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform:translateX(-50%);width:min(1000px,120vw);height:520px;pointer-events:none;background:radial-gradient(ellipse at 50% 15%,rgba(8,127,232,.12),transparent 68%);filter:blur(18px);animation:glowBreath 7s ease-in-out infinite alternate}
 .wrap{width:min(100% - 36px,980px);margin:auto}
-.top{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:14px 0 24px;gap:12px;animation:fadeDown .65s ease both}
+.top{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:14px 0 24px;gap:12px;animation:fadeDown .65s ease both}.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:100px}.header-mascot{display:block;width:clamp(130px,42vw,210px);height:108px;object-fit:cover;object-position:68% 48%;border-radius:12px;flex:0 1 auto}.brand{flex:0 0 auto}
 .brand{display:flex;align-items:center;justify-content:flex-start;min-height:60px;text-decoration:none}.brand img{display:block;width:90px;height:64px;object-fit:contain;object-position:left center}
 .nav{width:100%;display:flex;justify-content:space-around;gap:8px;align-items:center;padding:13px 12px;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(8,127,232,.18);border-radius:16px;box-shadow:0 6px 20px rgba(7,86,155,.07)}
 .nav a{font-family:Roboto,Arial,sans-serif;font-weight:600;color:#172334;text-decoration:none;font-size:clamp(13px,3.3vw,16px);white-space:nowrap;transition:color .18s ease}
 .nav a:hover{color:var(--blue)}
 .nav a:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:4px}
-.hero{padding:14px 0 56px;animation:heroReveal .8s .08s cubic-bezier(.2,.7,.2,1) both}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}.hello-champ{display:flex;justify-content:center;align-items:center;margin:0 auto 10px;width:100%;max-width:290px;height:170px;overflow:hidden}.hello-champ img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.hero{padding:14px 0 56px;animation:heroReveal .8s .08s cubic-bezier(.2,.7,.2,1) both}.hero-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
 .hero h1{font-size:clamp(2.25rem,8vw,4.4rem);line-height:.98;letter-spacing:-.045em;max-width:760px;margin:8px 0 24px}
 .hero p{font:clamp(1.05rem,4vw,1.35rem)/1.35 Georgia,serif;color:#222;max-width:620px;margin:0 0 24px}
 .actions{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
@@ -61,8 +61,8 @@ body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform
 @keyframes glowBreath{from{opacity:.55;transform:translateX(-50%) scale(.96)}to{opacity:1;transform:translateX(-50%) scale(1.04)}}
 @keyframes buttonGlow{0%,100%{background-position:0% 50%;box-shadow:0 5px 14px #087fe82b}50%{background-position:100% 50%;box-shadow:0 7px 22px #087fe844}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.subject{opacity:1;transform:none}}
-@media(max-width:420px){.top{gap:10px}.brand img{width:88px!important;height:62px!important}.nav{gap:4px;padding:12px 8px}.nav a{font-size:13px}.hello-champ{height:150px;max-width:250px}}
-@media(min-width:700px){.top{padding-top:18px}.hero{padding-top:28px}.hero-layout{grid-template-columns:minmax(0,1.15fr) minmax(240px,.85fr);align-items:center;gap:26px}.hello-champ{height:300px;max-width:100%;margin:0}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.cover{aspect-ratio:1.15/1}.brand img{width:90px;height:64px}}
+@media(max-width:420px){.top{gap:10px}.top-row{min-height:100px;gap:6px}.brand img{width:88px!important;height:62px!important}.header-mascot{width:clamp(120px,43vw,175px);height:100px;object-position:68% 48%}.nav{gap:4px;padding:12px 8px}.nav a{font-size:13px}}
+@media(min-width:700px){.top{padding-top:18px}.top-row{min-height:120px}.header-mascot{width:230px;height:120px;object-position:68% 48%}.hero{padding-top:28px}.actions{flex-direction:row}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.cover{aspect-ratio:1.15/1}.brand img{width:90px;height:64px}}
 @font-face{font-family:"Neue Freigeist";src:url("./NeueFreigeistTest-Black-BF670f2d936d319.otf") format("opentype");font-weight:900;font-style:normal;font-display:swap}
 .hero h1,.section h2,#how-to-buy h2,#contact h2{font-family:"Neue Freigeist",sans-serif;font-weight:900}
 </style>
@@ -78,7 +78,7 @@ body::before{content:"";position:absolute;z-index:-1;top:95px;left:50%;transform
 <div class="hero-copy"><h1>Affordable notes<br>for competitive<br>exam prep.</h1>
 <p>WitWarp sells exam-focused study notes at prices students can actually pay.</p>
 <div class="actions"><a class="btn primary" href="#notes">See the notes</a><a class="btn" href="#contact">Message WitWarp</a></div></div>
-<div class="hello-champ"><img src="./hello-champ.png" alt="Hello Champ! WitWarp mascot greeting"></div>
+
 </div>
 </section>
 <section class="wrap section" id="notes">
