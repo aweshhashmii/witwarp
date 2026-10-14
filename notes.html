@@ -39,7 +39,7 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 .panel p{margin:0 0 16px}
 .sample{margin:24px 0 28px}
 .sample h2{font-size:25px;margin:0 0 15px;letter-spacing:-.025em}
-.sample-card{border-radius:22px;background:linear-gradient(145deg,#edf6ff,#f8fbff);border:1px solid #d5e7fa;padding:20px;min-height:190px;display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:hidden}
+.sample-card{border-radius:22px;background:linear-gradient(145deg,#edf6ff,#f8fbff);border:1px solid #d5e7fa;padding:20px;min-height:190px;display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:hidden}.history-samples{display:none;gap:16px}.history-samples img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #d5e7fa;box-shadow:0 6px 18px rgba(7,86,155,.1)}.history-samples.active{display:grid;grid-template-columns:1fr;}.history-samples p{margin:0 0 10px;color:#526174;font:14px/1.4 Roboto,Arial,sans-serif}@media(min-width:650px){.history-samples.active{grid-template-columns:1fr 1fr}}
 .paper{background:white;border:1px solid #d9e6f4;border-radius:12px;padding:14px 10px;box-shadow:0 4px 12px #174b7b0a}
 .paper b{display:block;background:#eaf4ff;color:#07569b;padding:6px;margin-bottom:8px;font-size:12px;border-radius:5px}
 .paper i{display:block;height:4px;background:#d3e2f1;margin:8px 0;border-radius:4px}
@@ -71,7 +71,7 @@ body{margin:0;font-family:Roboto,Arial,Helvetica,sans-serif;color:#111827;backgr
 </div>
 <section id="contents-panel" class="panel"><ul id="contents-list"></ul></section>
 <section id="description-panel" class="panel" hidden><div id="description-copy"></div></section>
-<section class="sample"><h2>Notes Sample</h2><div class="sample-card" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div></section>
+<section class="sample"><h2>Notes Sample</h2><div class="sample-card" id="generic-sample" aria-label="Illustrative preview of study notes"><div class="paper"><b id="sample-label">WITWARP STUDY NOTES</b><i></i><i></i><i></i><i></i><b>Key points</b><i></i><i></i><i></i><i></i></div><div class="paper"><b>Quick revision</b><i></i><i></i><i></i><b>Important facts</b><i></i><i></i><i></i><i></i></div></div><div class="history-samples" id="history-samples"><div><p>Sample 1 — Ancient History</p><img src="./history-sample-1.jpg" alt="Handwritten Ancient History notes sample"></div><div><p>Sample 2 — Indus Valley Civilization town planning</p><img src="./history-sample-2.jpg" alt="Handwritten town planning notes sample"></div></div></section>
 <div class="pay"><div><a id="pay-link" href="https://rzp.io/rzp/XlVAPZf" target="_blank" rel="noopener">Pay Now ₹199</a><p class="note">You'll be redirected to Razorpay to complete payment.</p></div></div>
 </main>
 <footer class="foot"><div class="wrap"><strong>Need help before buying?</strong><p>Message WitWarp to confirm availability and delivery details.</p><p>WhatsApp<br><a href="https://wa.me/919905523465">9905523465</a></p><p>Email<br><a href="mailto:awesh.h2@gmail.com">awesh.h2@gmail.com</a></p><p>Instagram<br><a href="https://instagram.com/witwarp.co">@witwarp.co</a></p><a class="back" href="index.html#notes">← Back to all notes</a></div></footer>
@@ -93,6 +93,7 @@ const coverFiles={'History':'history-cover.png','Geography':'geography-cover.png
 const coverImage=document.getElementById('subject-cover-image');coverImage.src='./'+(coverFiles[subject]||coverFiles.History);coverImage.alt=subject+' study notes cover';
 document.getElementById('page-title').textContent=item.title;
 document.getElementById('sample-label').textContent=subject.toUpperCase()+' NOTES';
+if(subject==='History'){document.getElementById('generic-sample').style.display='none';document.getElementById('history-samples').classList.add('active')}
 document.getElementById('contents-list').innerHTML=item.contents.map(x=>'<li>'+x+'</li>').join('');
 document.getElementById('description-copy').innerHTML=item.description.map(x=>'<p>'+x+'</p>').join('');
 function toggle(btn,panel,otherBtn,otherPanel){const opening=panel.hidden;panel.hidden=!opening;btn.setAttribute('aria-expanded',String(opening));otherPanel.hidden=true;otherBtn.setAttribute('aria-expanded','false')}
