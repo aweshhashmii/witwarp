@@ -165,6 +165,73 @@ main.wrap{padding-bottom:8px}
     </form>
   </div>
 </div>
+  <div class="pay-inner">
+    <button class="pay-button" type="button" onclick="openCheckout()">
+      Pay Now ₹199
+    </button>
+
+    <form id="checkout-form" hidden
+          style="margin-top:20px;padding:20px;background:#fff;border:2px solid #c5d9e6;border-radius:16px;box-shadow:0 5px 0 #d8e7f1;">
+
+      <h2 style="margin:0 0 8px;font-size:22px;">Complete Your Order</h2>
+
+      <p id="checkout-subject"
+         style="color:#526174;margin:0 0 18px;"></p>
+
+      <label for="customer-name"
+             style="display:block;font-weight:700;margin-bottom:7px;">
+        Full Name
+      </label>
+
+      <input id="customer-name" name="name" type="text"
+             autocomplete="name" required maxlength="80"
+             placeholder="Enter your full name"
+             style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
+
+      <label for="delivery-method"
+             style="display:block;font-weight:700;margin-bottom:7px;">
+        Choose Delivery Method
+      </label>
+
+      <select id="delivery-method" name="delivery_method" required
+              style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font:16px Roboto,Arial,sans-serif;">
+        <option value="">Select delivery method</option>
+        <option value="email">Email Delivery</option>
+        <option value="telegram">Telegram Delivery</option>
+        <option value="download">Direct Download</option>
+      </select>
+
+      <div id="email-field" hidden>
+        <label for="customer-email"
+               style="display:block;font-weight:700;margin-bottom:7px;">
+          Email Address
+        </label>
+
+        <input id="customer-email" name="email" type="email"
+               autocomplete="email"
+               placeholder="you@example.com"
+               style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
+      </div>
+
+      <p style="font-size:13px;line-height:1.5;color:#526174;">
+        Order total: <strong>₹199</strong>
+      </p>
+
+      <button id="checkout-submit" type="submit"
+              class="pay-button">
+        Continue to Secure Payment
+      </button>
+
+      <button type="button" onclick="closeCheckout()"
+              style="width:100%;padding:12px;margin-top:12px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font-weight:700;">
+        Cancel
+      </button>
+
+      <p id="checkout-message" role="status"
+         style="font-size:14px;line-height:1.5;"></p>
+    </form>
+  </div>
+</div>
   <button class="pay-button" type="button" onclick="openCheckout()">
     Pay Now ₹199
   </button>
