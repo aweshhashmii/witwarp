@@ -122,14 +122,6 @@ main.wrap{padding-bottom:8px}
         <option value="download">Direct Download</option>
       </select>
 
-      <aside id="delivery-notice" aria-label="Delivery information" style="margin:-4px 0 18px;padding:14px 15px;background:#eef6ff;border:1px solid #b9d8f2;border-left:4px solid #087fe8;border-radius:10px;color:#24364b;font-size:14px;line-height:1.55;">
-        <strong style="display:block;margin-bottom:6px;font-size:15px;">Delivery information</strong>
-        <p style="margin:5px 0;"><strong>Email Delivery:</strong> After payment is verified and email delivery is enabled, the notes PDF will be sent to the email address you provide.</p>
-        <p style="margin:5px 0;"><strong>Telegram Delivery:</strong> After payment is verified and the WitWarp Telegram bot is connected, the notes PDF will be sent through Telegram.</p>
-        <p style="margin:5px 0;"><strong>Direct Download:</strong> After payment is verified and the PDF download is enabled, you will be directed to the notes download page.</p>
-        <p style="margin:8px 0 0;font-weight:700;">Please note: automated delivery and direct downloads are not enabled yet. Contact WitWarp to confirm availability before paying. Do not pay expecting instant delivery until this notice is updated.</p>
-      </aside>
-
       <div id="email-field" hidden>
         <label for="customer-email" style="display:block;font-weight:700;margin-bottom:7px;">Email Address</label>
         <input id="customer-email" name="email" type="email" autocomplete="email"
@@ -137,16 +129,8 @@ main.wrap{padding-bottom:8px}
                style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;font:16px Roboto,Arial,sans-serif;">
       </div>
 
-      <label for="payment-method" style="display:block;font-weight:700;margin:8px 0 7px;">Choose Payment Method</label>
-      <select id="payment-method" name="payment_method" required
-              style="width:100%;padding:13px;margin-bottom:16px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font:16px Roboto,Arial,sans-serif;">
-        <option value="razorpay">Razorpay — cards, UPI and available methods</option>
-        <option value="upi">Direct UPI App — Google Pay, PhonePe, Paytm etc.</option>
-      </select>
-
       <p style="font-size:13px;line-height:1.5;color:#526174;">Order total: <strong>₹199</strong></p>
-      <button id="checkout-submit" type="submit" class="pay-button">Continue to Razorpay</button>
-      <p id="upi-note" style="font-size:13px;line-height:1.5;color:#526174;margin:10px 0 0;" hidden>Direct UPI payments are not automatically verified by this website. After paying, save your UPI transaction ID/UTR and contact WitWarp on WhatsApp to confirm your order. Notes will not be delivered until payment is verified.</p>
+      <button id="checkout-submit" type="submit" class="pay-button">Continue to Secure Payment</button>
       <button type="button" onclick="closeCheckout()"
               style="width:100%;padding:12px;margin-top:12px;border:1px solid #c5d9e6;border-radius:10px;background:#fff;font-weight:700;cursor:pointer;">Cancel</button>
       <p id="checkout-message" role="status" aria-live="polite" style="font-size:14px;line-height:1.5;"></p>
@@ -192,8 +176,6 @@ const deliverySelect = document.getElementById('delivery-method');
 const emailInput = document.getElementById('customer-email');
 const emailField = document.getElementById('email-field');
 const checkoutSubmit = document.getElementById('checkout-submit');
-const paymentSelect = document.getElementById('payment-method');
-const upiNote = document.getElementById('upi-note');
 
 document.getElementById('checkout-subject').textContent = item.title + ' — ₹199';
 
@@ -216,12 +198,6 @@ deliverySelect.addEventListener('change', () => {
   emailField.hidden = !needsEmail;
   emailInput.required = needsEmail;
   if (!needsEmail) emailInput.value = '';
-});
-
-paymentSelect.addEventListener('change', () => {
-  const isUpi = paymentSelect.value === 'upi';
-  checkoutSubmit.textContent = isUpi ? 'Open UPI App to Pay ₹199' : 'Continue to Razorpay';
-  upiNote.hidden = !isUpi;
 });
 
 checkoutForm.addEventListener('submit', async (event) => {
@@ -247,24 +223,6 @@ checkoutForm.addEventListener('submit', async (event) => {
   }
   if (deliveryMethod === 'email' && !email) {
     checkoutMessage.textContent = 'Please enter your email address.';
-    return;
-  }
-
-  if (paymentSelect.value === 'upi') {
-    // Direct UPI intent: the customer must authorize the payment in their UPI app.
-    // The website cannot verify this payment automatically, so no delivery is unlocked here.
-    const transactionRef = 'WW' + Date.now().toString();
-    const note = subject + ' Notes - WitWarp';
-    const upiParams = new URLSearchParams({
-      pa: 'awesh.h2-1@okhdfcbank',
-      pn: 'WitWarp',
-      am: '199.00',
-      cu: 'INR',
-      tn: note,
-      tr: transactionRef
-    });
-    checkoutMessage.textContent = 'Opening your UPI app. After paying, save the UTR/transaction ID and contact WitWarp on WhatsApp for manual verification.';
-    window.location.href = 'upi://pay?' + upiParams.toString();
     return;
   }
 
@@ -300,7 +258,7 @@ checkoutForm.addEventListener('submit', async (event) => {
   } catch (error) {
     checkoutMessage.textContent = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
     checkoutSubmit.disabled = false;
-    checkoutSubmit.textContent = paymentSelect.value === 'upi' ? 'Open UPI App to Pay ₹199' : 'Continue to Razorpay';
+    checkoutSubmit.textContent = 'Continue to Secure Payment';
   }
 });
 
