@@ -15,7 +15,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background-color:#f8fbff;background-image:radial-gradient(#a9c9e7 1px,transparent 1px);background-size:22px 22px;color:#090909;font-family:Roboto,Arial,sans-serif}
 .wrap{width:min(100% - 36px,980px);margin:auto}
 header{padding:22px 0 12px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.brand{font-weight:900;font-size:26px;letter-spacing:-1.5px;color:#fff;background:#080808;padding:7px 11px;border-radius:5px;text-decoration:none;line-height:.9}
+.brand{display:block;flex:0 0 auto;text-decoration:none;background:none;padding:0;border:0;border-radius:0;line-height:normal;color:inherit}.brand img{display:block;width:118px;height:auto;max-width:100%;object-fit:contain}
 .back{color:#07569b;font-weight:700;text-decoration:none}
 .hero{text-align:center;padding:34px 0 20px}
 h1{font-size:clamp(2.2rem,7vw,3.8rem);letter-spacing:-.045em;line-height:1;margin:0 0 12px;font-weight:900}
@@ -43,7 +43,7 @@ footer{text-align:center;color:#526174;font-size:13px;padding:18px 0 30px}
 </style>
 </head>
 <body>
-<header class="wrap"><a class="brand" href="index.html" aria-label="WitWarp home">WitWarp</a><a class="back" href="index.html">← Back to home</a></header>
+<header class="wrap"><a class="brand" href="index.html" aria-label="WitWarp home"><img src="./witwarp-logo.png" alt="WitWarp"></a><a class="back" href="index.html">← Back to home</a></header>
 <main class="wrap">
 <section class="hero"><h1>Free PYQs</h1><p class="intro">Choose your exam, select the year and paper, then download the previous-year question paper PDF.</p></section>
 <section class="panel" aria-labelledby="exam-heading">
