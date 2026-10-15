@@ -83,6 +83,12 @@ body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform
 .subject-label{display:block!important;position:relative!important;z-index:2!important;margin:13px 2px 0!important;font-family:Roboto,Arial,sans-serif!important;font-size:clamp(15px,3.8vw,19px)!important;font-weight:600!important;line-height:1.2!important;letter-spacing:-.02em!important;color:#111!important}
 @media(min-width:700px){.top-row{min-height:150px!important}.brand img{width:130px!important;height:94px!important}.header-mascot{width:280px!important;height:165px!important;max-width:45%!important}.grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:30px 22px!important}}
 @media(max-width:420px){.top-row{min-height:118px!important;padding:0!important;gap:4px!important}.brand img{width:108px!important;height:78px!important}.header-mascot{width:clamp(165px,49vw,210px)!important;max-width:60%!important;height:130px!important;object-fit:contain!important}.nav{min-height:58px!important;gap:4px!important;padding:12px 6px!important}.nav a{font-size:13px!important}.subject{padding:8px 8px 12px!important}.subject-label{font-size:16px!important}}
+/* Compact horizontal header logos */
+.top-row{min-height:112px!important;padding:0!important;gap:8px!important;align-items:center!important}
+.brand img{width:98px!important;height:72px!important;object-fit:contain!important}
+.header-mascot{flex:0 1 225px!important;width:clamp(150px,42vw,225px)!important;max-width:55%!important;height:122px!important;object-fit:contain!important;object-position:right center!important;margin:0 0 0 auto!important}
+@media(min-width:700px){.top-row{min-height:124px!important}.brand img{width:108px!important;height:80px!important}.header-mascot{width:235px!important;max-width:48%!important;height:132px!important}}
+@media(max-width:420px){.top-row{min-height:104px!important;gap:5px!important}.brand img{width:88px!important;height:66px!important}.header-mascot{width:clamp(140px,43vw,180px)!important;max-width:58%!important;height:108px!important}}
 /* Student review styling */
 .review-form{max-width:620px;margin:26px auto 0;padding:20px;background:#fff;border:2px solid #111;border-radius:15px;box-shadow:5px 6px 0 #111;display:grid;gap:10px}
 .review-form h3{margin:0 0 6px;font-family:"Neue Freigeist",sans-serif;font-size:24px}
