@@ -107,8 +107,9 @@ body::before{content:"";position:absolute;z-index:-1;top:90px;left:50%;transform
 .review-card p{margin:8px 0 0;line-height:1.5;overflow-wrap:anywhere}
 
 /* Free PYQs entry button */
-.pyqs-entry{display:flex;justify-content:center;margin:-12px auto 48px;padding:0 18px}
+.pyqs-entry{display:flex;justify-content:flex-start;width:min(100% - 36px,980px);margin:18px auto 30px;padding:0}
 .pyqs-entry .btn{font-weight:800;min-width:190px;text-align:center}
+@media(min-width:700px){.pyqs-entry{margin:20px auto 34px}}
 </style>
 </head>
 <body id="top">
